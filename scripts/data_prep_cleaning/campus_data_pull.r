@@ -60,3 +60,6 @@ campus_data <- campus_data %>%
 campus_data <- campus_data %>%
   filter(!inst_size == "Not applicable")
 
+# Save data for manual filtering 
+
+write.csv(campus_data, "data/campus_data_pull_raw.csv", row.names = FALSE)
