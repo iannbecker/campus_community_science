@@ -63,3 +63,4 @@ campus_data <- campus_data %>%
 # Save data for manual filtering 
 
 write.csv(campus_data, "data/campus_data_pull_raw.csv", row.names = FALSE)
+
