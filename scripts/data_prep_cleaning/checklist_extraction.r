@@ -16,7 +16,7 @@
 ##############################
 
 # This is a cluster script to extract ebird data for counting checklists
-
+(OUT OF DATA)
 # Libraries
 library(auk)
 library(dplyr)
