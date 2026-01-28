@@ -7,7 +7,7 @@
 ##############################
 
 # This script is used to prep and extract eBird checklist data for use
-# counting checklists per college campus
+# counting checklists per college campus (Check cluster)
 
 library(auk)
 library(dplyr)
