@@ -16,7 +16,7 @@ library(performance)
 # LOAD DATA
 # ============================================================================
 
-campus_pca <- read.csv("campus_data_with_IEI.csv")
+campus_pca <- read.csv("campus_data_with_environment.csv")
 
 cat("Total rows:", nrow(campus_pca), "\n")
 cat("Missing values: None - ready for PCA!\n")
@@ -58,7 +58,7 @@ print(get_eigenvalue(pca_result))
 
 # PC1 loadings
 cat("\n--- PC1 Loadings (with campus area) ---\n")
-print(round(sort(pca_result$var$coord[,1], decreasing = TRUE), 3))
+print(round(sort(pca_result$var$coord[,2], decreasing = TRUE), 3))
 
 # Visualizations
 fviz_eig(pca_result, addlabels = TRUE, 
@@ -113,7 +113,7 @@ print(AIC(m1, m2, m3))
 
 # Best model summary
 cat("\n--- Best Model Summary ---\n")
-summary(m1)
+summary(m2)
 
 # Diagnostics
 sim_res <- simulateResiduals(m2, n = 1000)
@@ -125,8 +125,58 @@ cat("Pearson R²:", cor(campus_pca$checklist_count, fitted(m2))^2, "\n")
 print(r2(m2))
 
 # ============================================================================
-# SAVE DATA WITH NEW IEI
+# TEST OTHER CANDIDATE MODELS 
 # ============================================================================
 
-write.csv(campus_pca, "campus_data_with_IEI_v2.csv", row.names = FALSE)
-cat("\nSaved updated data with IEI (including area) to: campus_data_with_IEI_v2.csv\n")
+# Standardize everything
+
+campus_pca <- campus_pca %>%
+  mutate(
+    # Standardize environmental variables (mean = 0, SD = 1)
+    impervious_5km_scaled = scale(impervious_5km)[,1],
+    impervious_10km_scaled = scale(impervious_10km)[,1],
+    pct_vegetation_scaled = scale(pct_vegetation_campus)[,1],
+    latitude_scaled = scale(latitude)[,1],
+    longitude_scaled = scale(longitude)[,1],
+    
+    # PCs are already standardized from PCA, but you can re-standardize if you want consistency
+    # (Not strictly necessary since PCA already did this)
+    # PC1_scaled = scale(IEI_PC1)[,1],
+    # PC2_scaled = scale(IEI_PC2)[,1]
+  )
+
+# Check means and SDs (should be ~0 and ~1)
+
+cat("\nStandardized variable summaries:\n")
+summary(campus_pca[, c("impervious_5km_scaled", "impervious_10km_scaled", "pct_vegetation_scaled")])
+
+# Candidate models
+
+m_null <- glmmTMB(checklist_count ~ 1 + (1|state_abbr), 
+              data = campus_pca, 
+              family = nbinom2)
+
+m_inst <- glmmTMB(checklist_count ~ IEI_PC1 + IEI_PC2 + (1|state_abbr), 
+              data = campus_pca, 
+              family = nbinom2)
+
+m_urban <- glmmTMB(checklist_count ~ IEI_PC1 + IEI_PC2 + impervious_10km + (1|state_abbr), 
+                   data = campus_pca, 
+                   family = nbinom2)
+
+m_vege <- glmmTMB(checklist_count ~ IEI_PC1 + IEI_PC2 + pct_vegetation_scaled + (1|state_abbr), 
+                         data = campus_pca, 
+                         family = nbinom2)
+
+# model selection
+
+aic_results <- AIC(m_null, m_inst, m_urban, m_vege)
+print(aic_results)
+
+# check best model
+
+summary(m_urban)
+sim_res_urban <- simulateResiduals(m_urban, n = 1000)
+plot(sim_res_urban)
+cat("Pearson R²:", cor(campus_pca$checklist_count, fitted(m_urban))^2, "\n")
+print(r2(m_urban))
