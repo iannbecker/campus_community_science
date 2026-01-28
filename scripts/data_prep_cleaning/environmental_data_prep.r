@@ -133,7 +133,7 @@ vegetation_summary <- landcover_values %>%
   group_by(ID) %>%
   summarize(
     total_pixels = n(),
-    veg_pixels = sum(NLCD_landcover %in% c(41, 42, 43, 52, 71, 81, 90, 95), na.rm = TRUE),
+    veg_pixels = sum(NLCD_landcover %in% c(41, 42, 43, 52, 71, 90, 95), na.rm = TRUE),
     pct_vegetation = (veg_pixels / total_pixels) * 100
   )
 
@@ -145,14 +145,8 @@ hist(campus_boundaries_filtered$pct_vegetation_campus,
      main = "On-Campus Vegetation Cover %",
      xlab = "Vegetation %")
 
-# ============================================================================
-# DECIDE: 5km vs 10km buffer for urbanization
-# ============================================================================
+# Merge both urban for now
 
-# Test which buffer size has better relationship with checklist counts
-# (Do this after merging with campus_data)
-
-# Merge both for now
 campus_data_env <- campus_data %>%
   left_join(
     campus_boundaries_filtered %>%
@@ -162,6 +156,7 @@ campus_data_env <- campus_data %>%
   )
 
 # Quick correlation check
+
 cat("\nCorrelation with checklist counts:\n")
 cat("5km buffer:", cor(campus_data_env$checklist_count, 
                        campus_data_env$impervious_5km, use = "complete.obs"), "\n")
@@ -169,4 +164,5 @@ cat("10km buffer:", cor(campus_data_env$checklist_count,
                         campus_data_env$impervious_10km, use = "complete.obs"), "\n")
 
 # Save
+
 write.csv(campus_data_env, "campus_data_with_environment.csv", row.names = FALSE)
