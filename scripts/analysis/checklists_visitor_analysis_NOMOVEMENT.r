@@ -99,3 +99,27 @@ leveneTest(checklists_per_observer ~ location_type, data = concentration)
 
 wilcox.test(checklists_per_observer ~ location_type, data = concentration)
 
+# ============================================================================
+# SELECT CAMPUS AND HOTSPOT FOR MOVEMENT FIGURE
+# ============================================================================
+
+# Select high-activity campus
+
+top_campus <- campus_visitors %>%
+  arrange(desc(checklist_count)) %>%
+  slice(1)
+
+# Select comparable hotspot (similar checklist volume)
+
+comparable_hotspot <- hotspot_visitors %>%
+  arrange(desc(checklist_count)) %>%
+  slice(1:10) %>%  # Look at top 10 hotspots
+  slice(1)  # Pick one with similar activity
+
+# Show candidates
+
+hotspot_visitors %>%
+  arrange(desc(checklist_count)) %>%
+  select(location_name, checklist_count, unique_visitors) %>%
+  head(10)
+
