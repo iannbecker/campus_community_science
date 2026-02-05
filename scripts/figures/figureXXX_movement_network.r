@@ -260,20 +260,27 @@ cat("Point size range: 2.5-7 (smaller)\n")
 # ADD TEXAS COUNTY OVERVIEW MAPS
 ##############################
 
-# Campus county map
-texas_counties_campus <- texas_counties %>%
-  mutate(has_data = ifelse(NAME %in% campus_counties_with_data, "Campus Data", "Other"))
+# Specify which counties you want to highlight
+counties_to_highlight_campus <- c("Brazos")  
+counties_to_highlight_hotspot <- c("Nueces", "Kleberg", "San Patricio", "Aransas") 
 
-p_campus_overview <- ggplot(texas_counties_campus) +
-  geom_sf(aes(fill = has_data), color = "black", linewidth = 0.5) +
-  scale_fill_manual(
-    values = c("Campus Data" = "#FFB703", "Other" = "gray95"),
-    name = ""
-  ) +
+# specify state
+
+texas <- states(cb = TRUE, year = 2021) %>%
+  filter(NAME == "Texas") %>%
+  st_transform(4326)
+
+# Campus county map - only show highlighted counties
+texas_counties_campus <- texas_counties %>%
+  filter(NAME %in% counties_to_highlight_campus)
+
+p_campus_overview <- ggplot() +
+  # Draw Texas outline
+  geom_sf(data = texas, fill = "gray95", color = "black", linewidth = 0.8) +
+  # Draw highlighted county on top
+  geom_sf(data = texas_counties_campus, fill = "#FFB703", color = "black", linewidth = 0.8) +
   theme_void() +
   theme(
-    legend.position = "bottom",
-    legend.text = element_text(size = 14, face = "bold"),
     plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
     plot.margin = margin(10, 10, 10, 10)
   ) +
@@ -283,18 +290,15 @@ ggsave(path = output_dir, "texas_counties_campus.png", p_campus_overview, width 
 
 # Hotspot county map
 texas_counties_hotspot <- texas_counties %>%
-  mutate(has_data = ifelse(NAME %in% hotspot_counties_with_data, "Hotspot Data", "Other"))
+  filter(NAME %in% counties_to_highlight_hotspot)
 
-p_hotspot_overview <- ggplot(texas_counties_hotspot) +
-  geom_sf(aes(fill = has_data), color = "black", linewidth = 0.5) +
-  scale_fill_manual(
-    values = c("Hotspot Data" = "#023047", "Other" = "gray95"),
-    name = ""
-  ) +
+p_hotspot_overview <- ggplot() +
+  # Draw Texas outline
+  geom_sf(data = texas, fill = "gray95", color = "black", linewidth = 0.8) +
+  # Draw highlighted county on top
+  geom_sf(data = texas_counties_hotspot, fill = "#023047", color = "black", linewidth = 0.8) +
   theme_void() +
   theme(
-    legend.position = "bottom",
-    legend.text = element_text(size = 14, face = "bold"),
     plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
     plot.margin = margin(10, 10, 10, 10)
   ) +
