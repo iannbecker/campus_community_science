@@ -1,7 +1,6 @@
 ##############################
 #
-# Movement Paths - DISTANCE LIMITED
-# One observer per location, within 50 miles
+# Movement Paths - ONLY COUNTIES WITH DATA
 #
 ##############################
 
@@ -13,6 +12,7 @@ library(patchwork)
 
 options(tigris_use_cache = TRUE)
 setwd("/Users/ianbecker/Desktop/project_code/campus_community_science/data")
+output_dir <- "/Users/ianbecker/Desktop/project_code/campus_community_science/figures_tables"
 
 ##############################
 # LOAD DATA
@@ -23,9 +23,12 @@ tx_network <- read.csv("network_7day_tamu_blucher.csv")
 tx_network <- tx_network %>%
   mutate(location_type = ifelse(origin == "Texas A&M", "Campus", "Hotspot"))
 
-cat("Downloading Texas boundary from tigris...\n")
-texas_sf <- states(cb = FALSE, year = 2021) %>%
-  filter(NAME == "Texas") %>%
+##############################
+# GET COUNTY BOUNDARIES
+##############################
+
+cat("Downloading Texas county boundaries from tigris...\n")
+texas_counties <- counties(state = "TX", cb = FALSE, year = 2021) %>%
   st_transform(4326)
 
 ##############################
@@ -42,7 +45,7 @@ observer_paths <- tx_network %>%
   ) %>%
   ungroup()
 
-# Pick ONE exemplar from each (most active)
+# Pick ONE exemplar from each
 top_campus <- observer_paths %>%
   filter(location_type == "Campus") %>%
   group_by(observer_id) %>%
@@ -57,62 +60,27 @@ top_hotspot <- observer_paths %>%
   arrange(desc(n_moves)) %>%
   slice(1)
 
-cat("\n=== SELECTED OBSERVERS ===\n")
-cat("Campus observer:", top_campus$observer_id, "with", top_campus$n_moves, "movements\n")
-cat("Hotspot observer:", top_hotspot$observer_id, "with", top_hotspot$n_moves, "movements\n")
-
 exemplar_paths <- observer_paths %>%
   filter(observer_id %in% c(top_campus$observer_id, top_hotspot$observer_id))
 
 ##############################
-# FILTER BY DISTANCE FROM ORIGIN
+# DISTANCE FILTER
 ##############################
 
-# Calculate distance from starting point (rough approximation)
-# 1 degree ≈ 111 km at equator, 69 miles
-# For Texas (≈30°N): 1 degree longitude ≈ 96 km ≈ 60 miles
-
 distance_limit_miles <- 50
-distance_limit_degrees <- distance_limit_miles / 60  # Rough conversion
+distance_limit_degrees <- distance_limit_miles / 60
 
 exemplar_paths <- exemplar_paths %>%
   mutate(
-    # Calculate distance from start (Euclidean approximation)
     dist_from_start = sqrt((lon - start_lon)^2 + (lat - start_lat)^2),
     within_range = dist_from_start <= distance_limit_degrees
-  )
-
-# Summary before filtering
-cat("\n=== DISTANCE FILTERING ===\n")
-cat("Distance limit:", distance_limit_miles, "miles (~", round(distance_limit_degrees, 2), "degrees)\n")
-
-distance_summary <- exemplar_paths %>%
-  group_by(location_type) %>%
-  summarize(
-    total_locations = n(),
-    within_range = sum(within_range),
-    outside_range = sum(!within_range),
-    pct_within = round(sum(within_range) / n() * 100, 1)
-  )
-
-print(distance_summary)
-
-# Filter to only locations within range
-exemplar_paths_filtered <- exemplar_paths %>%
+  ) %>%
   filter(within_range)
 
-cat("\nAfter filtering to", distance_limit_miles, "miles:\n")
-cat("Campus locations:", sum(exemplar_paths_filtered$location_type == "Campus"), "\n")
-cat("Hotspot locations:", sum(exemplar_paths_filtered$location_type == "Hotspot"), "\n")
+campus_data <- exemplar_paths %>% filter(location_type == "Campus")
+hotspot_data <- exemplar_paths %>% filter(location_type == "Hotspot")
 
-##############################
-# UPDATE PATHS WITH FILTERED DATA
-##############################
-
-campus_data <- exemplar_paths_filtered %>% filter(location_type == "Campus")
-hotspot_data <- exemplar_paths_filtered %>% filter(location_type == "Hotspot")
-
-# Recalculate next locations after filtering
+# Recalculate next locations
 campus_data <- campus_data %>%
   arrange(checklist_order) %>%
   mutate(
@@ -130,7 +98,55 @@ hotspot_data <- hotspot_data %>%
   )
 
 ##############################
-# COUNT VISITS PER LOCATION
+# IDENTIFY COUNTIES WITH CHECKLISTS
+##############################
+
+# Convert checklist locations to sf points
+campus_points_sf <- st_as_sf(campus_data, coords = c("lon", "lat"), crs = 4326)
+hotspot_points_sf <- st_as_sf(hotspot_data, coords = c("lon", "lat"), crs = 4326)
+
+# Find which counties contain checklists
+campus_counties_with_data <- st_join(campus_points_sf, texas_counties) %>%
+  st_drop_geometry() %>%
+  distinct(NAME) %>%
+  pull(NAME)
+
+hotspot_counties_with_data <- st_join(hotspot_points_sf, texas_counties) %>%
+  st_drop_geometry() %>%
+  distinct(NAME) %>%
+  pull(NAME)
+
+cat("\nCampus: Checklists in", length(campus_counties_with_data), "counties:", 
+    paste(campus_counties_with_data, collapse = ", "), "\n")
+cat("Hotspot: Checklists in", length(hotspot_counties_with_data), "counties:", 
+    paste(hotspot_counties_with_data, collapse = ", "), "\n")
+
+# Filter counties to only those with data
+campus_counties <- texas_counties %>%
+  filter(NAME %in% campus_counties_with_data)
+
+hotspot_counties <- texas_counties %>%
+  filter(NAME %in% hotspot_counties_with_data)
+
+# Identify the main county (where origin is)
+campus_origin <- campus_data %>% 
+  filter(checklist_order == 1) %>%
+  st_as_sf(coords = c("start_lon", "start_lat"), crs = 4326)
+
+hotspot_origin <- hotspot_data %>% 
+  filter(checklist_order == 1) %>%
+  st_as_sf(coords = c("start_lon", "start_lat"), crs = 4326)
+
+campus_main_county <- st_join(campus_origin, texas_counties) %>%
+  st_drop_geometry() %>%
+  pull(NAME)
+
+hotspot_main_county <- st_join(hotspot_origin, texas_counties) %>%
+  st_drop_geometry() %>%
+  pull(NAME)
+
+##############################
+# COUNT VISITS
 ##############################
 
 campus_visits <- campus_data %>%
@@ -152,52 +168,37 @@ hotspot_visits <- hotspot_data %>%
   mutate(point_type = ifelse(is_start, "Start", "Visited"))
 
 ##############################
-# CALCULATE ZOOM BOUNDS
+# BOUNDING BOX FROM COUNTIES WITH DATA
 ##############################
 
-very_tight_buffer <- 0.25
-
-# Campus
-campus_lon_range <- range(campus_data$lon, na.rm = TRUE)
-campus_lat_range <- range(campus_data$lat, na.rm = TRUE)
-
-campus_bounds <- list(
-  xmin = campus_lon_range[1] - very_tight_buffer,
-  xmax = campus_lon_range[2] + very_tight_buffer,
-  ymin = campus_lat_range[1] - very_tight_buffer,
-  ymax = campus_lat_range[2] + very_tight_buffer
-)
-
-# Hotspot
-hotspot_lon_range <- range(hotspot_data$lon, na.rm = TRUE)
-hotspot_lat_range <- range(hotspot_data$lat, na.rm = TRUE)
-
-hotspot_bounds <- list(
-  xmin = hotspot_lon_range[1] - very_tight_buffer,
-  xmax = hotspot_lon_range[2] + very_tight_buffer,
-  ymin = hotspot_lat_range[1] - very_tight_buffer,
-  ymax = hotspot_lat_range[2] + very_tight_buffer
-)
+campus_bbox <- st_bbox(campus_counties)
+hotspot_bbox <- st_bbox(hotspot_counties)
 
 ##############################
-# CAMPUS MAP
+# CAMPUS MAP - SMALLER POINTS
 ##############################
 
 p_campus <- ggplot() +
-  geom_sf(data = texas_sf, fill = "gray95", color = "gray50", linewidth = 0.3) +
+  # All counties with data
+  geom_sf(data = campus_counties, fill = "gray95", color = "gray60", linewidth = 0.6) +
+  # Highlight main county with darker border
+  geom_sf(data = campus_counties %>% filter(NAME == campus_main_county), 
+          fill = NA, color = "black", linewidth = 1.2) +
+  # Movement arrows
   geom_segment(data = campus_data %>% filter(has_next),
                aes(x = lon, y = lat,
                    xend = next_lon, yend = next_lat),
-               color = "#FFB703", alpha = 0.6, linewidth = 0.7,
+               color = "#FFB703", alpha = 0.7, linewidth = 0.8,
                arrow = arrow(length = unit(0.15, "cm"), type = "closed")) +
+  # Points sized by visits (SMALLER)
   geom_point(data = campus_visits,
              aes(x = lon, y = lat, size = n_visits, fill = point_type),
-             color = "black", shape = 21, stroke = 0.8, alpha = 0.9) +
+             color = "black", shape = 21, stroke = 0.8, alpha = 0.95) +
   scale_fill_manual(values = c("Start" = "#E63946", "Visited" = "#FFB703")) +
-  scale_size_continuous(range = c(3, 10)) +
+  scale_size_continuous(range = c(2.5, 7)) +  # Much smaller range
   coord_sf(
-    xlim = c(campus_bounds$xmin, campus_bounds$xmax),
-    ylim = c(campus_bounds$ymin, campus_bounds$ymax)
+    xlim = c(campus_bbox["xmin"], campus_bbox["xmax"]),
+    ylim = c(campus_bbox["ymin"], campus_bbox["ymax"])
   ) +
   theme_void() +
   theme(
@@ -209,24 +210,30 @@ p_campus <- ggplot() +
   labs(title = "Campus")
 
 ##############################
-# HOTSPOT MAP
+# HOTSPOT MAP - SMALLER POINTS
 ##############################
 
 p_hotspot <- ggplot() +
-  geom_sf(data = texas_sf, fill = "gray95", color = "gray50", linewidth = 0.3) +
+  # All counties with data
+  geom_sf(data = hotspot_counties, fill = "gray95", color = "gray60", linewidth = 0.6) +
+  # Highlight main county with darker border
+  geom_sf(data = hotspot_counties %>% filter(NAME == hotspot_main_county), 
+          fill = NA, color = "black", linewidth = 1.2) +
+  # Movement arrows
   geom_segment(data = hotspot_data %>% filter(has_next),
                aes(x = lon, y = lat,
                    xend = next_lon, yend = next_lat),
-               color = "#023047", alpha = 0.6, linewidth = 0.7,
+               color = "#023047", alpha = 0.7, linewidth = 0.8,
                arrow = arrow(length = unit(0.15, "cm"), type = "closed")) +
+  # Points sized by visits (SMALLER)
   geom_point(data = hotspot_visits,
              aes(x = lon, y = lat, size = n_visits, fill = point_type),
-             color = "black", shape = 21, stroke = 0.8, alpha = 0.9) +
+             color = "black", shape = 21, stroke = 0.8, alpha = 0.95) +
   scale_fill_manual(values = c("Start" = "#E63946", "Visited" = "#023047")) +
-  scale_size_continuous(range = c(3, 10)) +
+  scale_size_continuous(range = c(2.5, 7)) +  # Much smaller range
   coord_sf(
-    xlim = c(hotspot_bounds$xmin, hotspot_bounds$xmax),
-    ylim = c(hotspot_bounds$ymin, hotspot_bounds$ymax)
+    xlim = c(hotspot_bbox["xmin"], hotspot_bbox["xmax"]),
+    ylim = c(hotspot_bbox["ymin"], hotspot_bbox["ymax"])
   ) +
   theme_void() +
   theme(
@@ -243,10 +250,56 @@ p_hotspot <- ggplot() +
 
 p_combined <- p_campus | p_hotspot
 
-ggsave("texas_movement_limited_50mi.png", p_combined, width = 14, height = 7, dpi = 300)
+ggsave(path = output_dir, "texas_movement_data_counties_only.png", p_combined, width = 14, height = 7, dpi = 300)
 
-cat("\nMap saved: texas_movement_limited_50mi.png\n")
-cat("Showing ONE observer per panel, within 50 miles of origin\n")
+cat("\nMap saved: texas_movement_data_counties_only.png\n")
+cat("Showing ONLY counties with checklist activity\n")
+cat("Point size range: 2.5-7 (smaller)\n")
 
+##############################
+# ADD TEXAS COUNTY OVERVIEW MAPS
+##############################
 
+# Campus county map
+texas_counties_campus <- texas_counties %>%
+  mutate(has_data = ifelse(NAME %in% campus_counties_with_data, "Campus Data", "Other"))
 
+p_campus_overview <- ggplot(texas_counties_campus) +
+  geom_sf(aes(fill = has_data), color = "black", linewidth = 0.5) +
+  scale_fill_manual(
+    values = c("Campus Data" = "#FFB703", "Other" = "gray95"),
+    name = ""
+  ) +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  ) +
+  labs(title = "Campus Network Counties")
+
+ggsave(path = output_dir, "texas_counties_campus.png", p_campus_overview, width = 10, height = 8, dpi = 300)
+
+# Hotspot county map
+texas_counties_hotspot <- texas_counties %>%
+  mutate(has_data = ifelse(NAME %in% hotspot_counties_with_data, "Hotspot Data", "Other"))
+
+p_hotspot_overview <- ggplot(texas_counties_hotspot) +
+  geom_sf(aes(fill = has_data), color = "black", linewidth = 0.5) +
+  scale_fill_manual(
+    values = c("Hotspot Data" = "#023047", "Other" = "gray95"),
+    name = ""
+  ) +
+  theme_void() +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 14, face = "bold"),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  ) +
+  labs(title = "Hotspot Network Counties")
+
+ggsave(path = output_dir, "texas_counties_hotspot.png", p_hotspot_overview, width = 10, height = 8, dpi = 300)
+
+cat("\nCounty overview maps saved!\n")
