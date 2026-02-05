@@ -13,6 +13,8 @@ library(osmdata)
 library(sf)
 library(dplyr)
 
+setwd("")
+
 # =============================================================================
 # LOAD DATA
 # =============================================================================
@@ -140,23 +142,11 @@ for(i in 1:nrow(campus_data)) {
 # =============================================================================
 # COMBINE AND SAVE RESULTS
 # =============================================================================
+
 if (length(campus_polygons_list) > 0) {
   
-  # Extract sf objects from $data and remove NULLs
-  campus_polygons_list_clean <- lapply(campus_polygons_list, function(x) x$data)
-  campus_polygons_list_clean <- campus_polygons_list_clean[!sapply(campus_polygons_list_clean, is.null)]
-  
-  # Combine one by one with same CRS
-  campus_polygons_sf <- campus_polygons_list_clean[[1]]
-  st_crs(campus_polygons_sf) <- 4326
-  
-  if (length(campus_polygons_list_clean) > 1) {
-    for (j in 2:length(campus_polygons_list_clean)) {
-      next_poly <- campus_polygons_list_clean[[j]]
-      st_crs(next_poly) <- 4326
-      campus_polygons_sf <- rbind(campus_polygons_sf, next_poly)
-    }
-  }
+  # Combine all polygons
+  campus_polygons_sf <- do.call(rbind, campus_polygons_list)
   
   # Print summary
   cat("\n===========================================\n")
@@ -215,5 +205,3 @@ if (length(campus_polygons_list) > 0) {
 cat("\n===========================================\n")
 cat("DONE\n")
 cat("===========================================\n")
-
-
