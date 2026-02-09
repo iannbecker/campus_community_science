@@ -11,12 +11,15 @@ library(factoextra)
 library(glmmTMB)
 library(DHARMa)
 library(performance)
+library(MuMIn)
+
+setwd("~/Desktop/project_code/campus_community_science/data")
 
 # ============================================================================
 # LOAD DATA
 # ============================================================================
 
-campus_pca <- read.csv("campus_data_with_environment.csv")
+campus_pca <- read.csv("campus_data_with_pca.csv")
 
 cat("Total rows:", nrow(campus_pca), "\n")
 cat("Missing values: None - ready for PCA!\n")
@@ -58,7 +61,7 @@ print(get_eigenvalue(pca_result))
 
 # PC1 loadings
 cat("\n--- PC1 Loadings (with campus area) ---\n")
-print(round(sort(pca_result$var$coord[,2], decreasing = TRUE), 3))
+print(round(sort(pca_result$var$coord[,1], decreasing = TRUE), 3))
 
 # Visualizations
 fviz_eig(pca_result, addlabels = TRUE, 
@@ -171,6 +174,8 @@ m_vege <- glmmTMB(checklist_count ~ IEI_PC1 + IEI_PC2 + pct_vegetation_scaled + 
 # model selection
 
 aic_results <- AIC(m_null, m_inst, m_urban, m_vege)
+weights <- Weights(aic_results$AIC)
+aic_results$AIC_weight <- weights
 print(aic_results)
 
 # check best model
@@ -178,5 +183,13 @@ print(aic_results)
 summary(m_urban)
 sim_res_urban <- simulateResiduals(m_urban, n = 1000)
 plot(sim_res_urban)
+
+testDispersion(sim_res_urban)
+testZeroInflation(sim_res_urban)
+
 cat("Pearson R²:", cor(campus_pca$checklist_count, fitted(m_urban))^2, "\n")
 print(r2(m_urban))
+
+# Save best model
+
+saveRDS(m_urban, file = "best_model_urban.rds")
