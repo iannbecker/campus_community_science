@@ -13,11 +13,13 @@ library(osmdata)
 library(sf)
 library(dplyr)
 
+setwd("/Users/ianbecker/Desktop/project_code/campus_community_science/data")
+
 # =============================================================================
 # LOAD DATA
 # =============================================================================
 
-campus_data <- read.csv("data/campus_data_pull_enrollment.csv")
+campus_data <- read.csv("campus_data_pull_raw_SENSITIVITY_ANALYSIS.csv")
 
 cat("Loaded", nrow(campus_data), "campuses\n")
 
@@ -167,22 +169,17 @@ if (length(campus_polygons_list) > 0) {
   cat("Polygons missing:", nrow(campus_data) - nrow(campus_polygons_sf), "\n")
   cat("Success rate:", round(nrow(campus_polygons_sf)/nrow(campus_data)*100, 1), "%\n")
   
-  # Create output directory if needed
-  if (!dir.exists("data/processed")) {
-    dir.create("data/processed", recursive = TRUE)
-  }
-  
   # Save as GeoPackage (recommended - preserves full column names)
   st_write(campus_polygons_sf, 
-           "data/processed/campus_polygons.gpkg", 
+           "campus_polygons_SENSITIVITY_ANALYSIS.gpkg", 
            delete_dsn = TRUE)
-  cat("\nSaved to: data/processed/campus_polygons.gpkg\n")
+  cat("\nSaved to: campus_polygons.gpkg\n")
   
   # Save as Shapefile (note: column names truncated to 10 chars)
   st_write(campus_polygons_sf, 
-           "data/processed/campus_polygons.shp", 
+           "campus_polygons_SENSITIVITY_ANALYSIS.shp", 
            delete_dsn = TRUE)
-  cat("Saved to: data/processed/campus_polygons.shp\n")
+  cat("Saved to: campus_polygons_SENSITIVITY_ANALYSIS.shp\n")
   
   # =============================================================================
   # CREATE TRACKING FILES
@@ -193,7 +190,7 @@ if (length(campus_polygons_list) > 0) {
     mutate(polygon_found = unitid %in% campus_polygons_sf$unitid)
   
   write.csv(campus_summary, 
-            "data/processed/campus_with_polygon_status.csv", 
+            "campus_with_polygon_status_SENSITIVITY_ANALYSIS.csv", 
             row.names = FALSE)
   
   # List of campuses needing manual polygon creation
@@ -202,11 +199,11 @@ if (length(campus_polygons_list) > 0) {
     select(unitid, inst_name, latitude, longitude, state_abbr, urban_centric_locale)
   
   write.csv(no_polygon, 
-            "data/processed/campuses_need_manual_polygons.csv", 
+            "campuses_need_manual_polygons_SENSITIVITY_ANALYSIS.csv", 
             row.names = FALSE)
   
   cat("\nCampuses without polygons:", nrow(no_polygon), "\n")
-  cat("Saved to: data/processed/campuses_need_manual_polygons.csv\n")
+  cat("Saved to: campuses_need_manual_polygons_SENSITIVITY_ANALYSIS.csv\n")
   
 } else {
   cat("\nERROR: No polygons found for any campus!\n")
