@@ -112,7 +112,10 @@ m3 <- glmmTMB(checklist_count ~ IEI_PC1 + IEI_PC2 + IEI_PC3 + (1|state_abbr),
 
 # Compare
 cat("\n--- Model Comparison (with area in IEI) ---\n")
-print(AIC(m1, m2, m3))
+aic_results_pca <- AIC(m1, m2, m3)
+weights_pca<- Weights(aic_results_pca$AIC)
+aic_results_pca$AIC_weight <- weights_pca
+print(aic_results_pca)
 
 # Best model summary
 cat("\n--- Best Model Summary ---\n")

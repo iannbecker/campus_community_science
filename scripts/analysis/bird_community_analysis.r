@@ -19,15 +19,17 @@ setwd("~/Desktop/project_code/campus_community_science/data")
 
 campus_obs <- read.csv("campus_bird_observations_raw.csv")
 hotspot_obs <- read.csv("all_bird_observations_raw.csv")
+single_UTRGV <- read.csv("single_campus_The_University_of_Texas_Rio_Grande_Valley___Brownsville_Campus.csv")
 
 # Transform location id to character in both datasets
 
 campus_obs$location_id <- as.character(campus_obs$location_id)
 hotspot_obs$location_id <- as.character(hotspot_obs$location_id)
+single_UTRGV$location_id <- as.character(single_UTRGV$location_id)
   
 # Combine Campus and Hotspot data
 
-all_obs <- bind_rows(campus_obs, hotspot_obs)
+all_obs <- bind_rows(campus_obs, hotspot_obs, single_UTRGV)
 
 # Check all observations 
 
@@ -46,7 +48,7 @@ write.csv(all_obs, "combined_bird_observations.csv", row.names = FALSE)
 
 # Clean up
 
-rm(campus_obs, hotspot_obs)
+rm(campus_obs, hotspot_obs, single_UTRGV)
 
 # ============================================================================
 # RICHNESS PER LOCATION
@@ -188,20 +190,20 @@ for (threshold in c(25, 20, 15, 10, 5, 2.5, 1)) {
 }
 
 # Use 10% threshold (found at ≤10% of locations)
-cat("=== USING 10% THRESHOLD ===\n")
+cat("=== USING 2.5% THRESHOLD ===\n")
 
 campus_rare <- species_occupancy %>%
-  filter(campus_occupancy > 0, campus_occupancy <= 5) %>%
+  filter(campus_occupancy > 0, campus_occupancy <= 2.5) %>%
   pull(scientific_name)
 
 hotspot_rare <- species_occupancy %>%
-  filter(hotspot_occupancy > 0, hotspot_occupancy <= 5) %>%
+  filter(hotspot_occupancy > 0, hotspot_occupancy <= 2.5) %>%
   pull(scientific_name)
 
 all_rare <- union(campus_rare, hotspot_rare)
 shared_rare <- intersect(campus_rare, hotspot_rare)
 
-cat("Rare species (≤10% location occupancy):\n")
+cat("Rare species (≤2.5% location occupancy):\n")
 cat("Total rare species:", length(all_rare), "\n")
 cat("Rare at campuses:", length(campus_rare), "\n")
 cat("Rare at hotspots:", length(hotspot_rare), "\n")
@@ -241,3 +243,44 @@ cat(rare_summary$hotspot_total, "(",
 cat("\n===========================================\n")
 cat("ANALYSIS COMPLETE!\n")
 cat("===========================================\n")
+
+# Get campus-only and hotspot-only rare species names
+campus_only_rare <- species_occupancy %>%
+  filter(campus_occupancy > 0, campus_occupancy <= 2.5,
+         hotspot_occupancy == 0) %>%
+  select(scientific_name, common_name, campus_occupancy) %>%
+  arrange(campus_occupancy)
+
+hotspot_only_rare <- species_occupancy %>%
+  filter(hotspot_occupancy > 0, hotspot_occupancy <= 2.5,
+         campus_occupancy == 0) %>%
+  select(scientific_name, common_name, hotspot_occupancy) %>%
+  arrange(hotspot_occupancy)
+
+print(campus_only_rare)
+print(hotspot_only_rare, n = 25)
+
+# Get most common shared species (highest occurrence in both)
+shared_common <- species_occupancy %>%
+  filter(campus_occupancy > 0, hotspot_occupancy > 0) %>%
+  mutate(avg_occupancy = (campus_occupancy + hotspot_occupancy) / 2) %>%
+  arrange(desc(avg_occupancy)) %>%
+  select(scientific_name, common_name, campus_occupancy, hotspot_occupancy, avg_occupancy)
+
+cat("Top 10 most common shared species:\n")
+print(shared_common, n = 50)
+
+library(eulerr)
+
+# Create proportional Venn diagram
+venn_data <- euler(c(
+  "Campus" = 60,      # campus only rare
+  "Hotspot" = 66,     # hotspot only rare
+  "Campus&Hotspot" = 441  # shared species
+))
+
+plot(venn_data,
+     fills = list(fill = c("#FFB703", "#023047"), alpha = 0.4),
+     quantities = FALSE,
+     labels = FALSE)
+
