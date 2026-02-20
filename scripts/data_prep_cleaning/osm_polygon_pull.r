@@ -19,7 +19,7 @@ setwd("/Users/ianbecker/Desktop/project_code/campus_community_science/data")
 # LOAD DATA
 # =============================================================================
 
-campus_data <- read.csv("campus_data_pull_raw_SENSITIVITY_ANALYSIS.csv")
+campus_data <- read.csv("campus_data_pull_raw_SENSITIVITY_FLYWAY_NJ_AL_OR.csv")
 
 cat("Loaded", nrow(campus_data), "campuses\n")
 
