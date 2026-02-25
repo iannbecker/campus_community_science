@@ -16,7 +16,7 @@ library(performance)
 # LOAD DATA
 # ============================================================================
 
-campus_pca <- read.csv("sensitivity_test.csv")
+campus_pca <- read.csv("campus_filter_with_environment_SENSITIVITY_ANALYSIS.csv")
 
 cat("Total rows:", nrow(campus_pca), "\n")
 cat("Missing values: None - ready for PCA!\n")
@@ -26,12 +26,12 @@ cat("Missing values: None - ready for PCA!\n")
 # ============================================================================
 
 pca_vars <- c("enrollment_Total", "degree_ordinal", "land_grant_binary", 
-              "carnegie_ordinal", "faculty_count", "research_labs", 
-              "bio_major", "birding_club", "campus_area_km2")
+              "carnegie_ordinal", "ecology.wildlife.count", "active.research.labs", 
+              "bio.eco.major.offered", "student.birding.nature.club", "campus_area_km2")
 
 # Select variables for PCA
 pca_input <- campus_pca %>%
-  select(all_of(pca_vars))
+  dplyr::select(all_of(pca_vars))
 
 cat("\nN for PCA:", nrow(pca_input), "\n")
 cat("Variables:", ncol(pca_input), "\n")
