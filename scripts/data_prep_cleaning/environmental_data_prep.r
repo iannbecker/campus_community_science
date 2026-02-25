@@ -28,11 +28,11 @@ land_cover_nlcd <- rast("NLCD_landcover.tif")
 
 # Load in campus boundaries 
 
-campus_boundaries <- st_read("campus_polygons_complete")
+campus_boundaries <- st_read("campus_polygons_SENSITIVITY_ANALYSIS")
 
 # Load in campus data 
 
-campus_data <- read.csv("campus_data_with_IEI.csv")
+campus_data <- read.csv("campus_filtered_SENSITIVITY_ANALYSIS.csv")
 
 # ============================================================================
 # PREP DATA FOR ENVIRONMENTAL VARIABLES
@@ -40,10 +40,10 @@ campus_data <- read.csv("campus_data_with_IEI.csv")
 
 # Fix UTRGV - Edinburg name in shapefile
 
-campus_boundaries <- campus_boundaries %>%
-  mutate(inst_name = ifelse(inst_name == "The University of Texas Rio Grande Valley", 
-                            "The University of Texas Rio Grande Valley - Edinburg", 
-                            inst_name))
+#campus_boundaries <- campus_boundaries %>%
+ # mutate(inst_name = ifelse(inst_name == "The University of Texas Rio Grande Valley", 
+  #                          "The University of Texas Rio Grande Valley - Edinburg", 
+   #                         inst_name))
 
 # Filter campus boundaries to only those with IEI data
 
@@ -165,4 +165,4 @@ cat("10km buffer:", cor(campus_data_env$checklist_count,
 
 # Save
 
-write.csv(campus_data_env, "campus_data_with_environment.csv", row.names = FALSE)
+write.csv(campus_data_env, "campus_filter_with_environment_SENSITIVITY_ANALYSIS.csv", row.names = FALSE)

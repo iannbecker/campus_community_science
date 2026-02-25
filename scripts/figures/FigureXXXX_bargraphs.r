@@ -1,6 +1,6 @@
 ##############################
 #
-# Campus eBird metrics analysis
+# Figure XXXX Bar Graphs
 # Ian Becker
 # February 2026
 #

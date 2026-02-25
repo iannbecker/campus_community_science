@@ -123,3 +123,6 @@ hotspot_visitors %>%
   select(location_name, checklist_count, unique_visitors) %>%
   head(10)
 
+# check maximum visitors 
+max(campus_visitors$unique_visitors)
+max(hotspot_visitors$unique_visitors)

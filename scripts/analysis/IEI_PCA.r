@@ -21,7 +21,7 @@ library(DHARMa)
 # LOAD DATA
 # ============================================================================
 
-campus <- read.csv("campus_data_with_counts_NO_ZERO.csv")
+campus <- read.csv("campus_filter_with_environment_SENSITIVITY_ANALYSIS.csv")
 
 # ============================================================================
 # PREPARE VARIABLES FOR PCA
@@ -95,7 +95,7 @@ campus_pca$IEI_PC1[complete.cases(campus_pca[, c("enrollment_Total", "degree_ord
   pca_result$ind$coord[, 1]
 
 # Negative binomial GLMM with state as random effect
-
+ 
 m1 <- glmmTMB(checklist_count ~ IEI_PC1 + (1 | state_abbr), 
               data = campus_pca, 
               family = nbinom2)
@@ -117,3 +117,4 @@ testOutliers(sim_res)         # Influential points
 # Residuals vs predictor (check linearity)
 plotResiduals(sim_res, campus_pca$IEI_PC1)
 
+write.csv(campus_pca, "campus_with_IEI_PC1_SENSITIVITY.csv", row.names = FALSE)

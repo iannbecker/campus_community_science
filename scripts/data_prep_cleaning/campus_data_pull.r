@@ -1,30 +1,90 @@
-##################
+####################################
 #
-#  Campus Data Pull
+#  Campus Data Pull - Sensitivity Analysis
 #  Ian Becker
-#  Dec 2025
+#  Jan 2026
 #
-##################
+###################################
 
 # This script is used for the initial campus dataset pull from the IPEDS database
 
 library(educationdata)
 library(dplyr)
+library(tigris)
 
-#################### Data pull
+options(tigris_use_cache = TRUE)
 
-# Pull IPEDS directory data for 2023 - most recent year
+# ============================================================================
+# FLYWAY-BASED STATE SELECTION
+# ============================================================================
+
+# Define states by flyway (excluding Central Flyway states: MT, ND, SD, WY, NE, KS, CO, NM, OK, TX)
+# and excluding Iowa (already included in your dataset)
+
+flyway_states <- list(
+  # Atlantic Flyway
+  atlantic = tibble(
+    state_abbr = c("ME", "NH", "VT", "MA", "RI", "CT", "NY", "NJ", "PA", 
+                   "DE", "MD", "VA", "WV", "NC", "SC", "GA", "FL"),
+    fips = c(23, 33, 50, 25, 44, 9, 36, 34, 42, 
+             10, 24, 51, 54, 37, 45, 13, 12)
+  ),
+  
+  # Mississippi Flyway (excluding Iowa and Central Flyway overlap)
+  mississippi = tibble(
+    state_abbr = c("MN", "WI", "IL", "IN", "OH", "MI", 
+                   "KY", "TN", "AL", "MS", "LA"),
+    fips = c(27, 55, 17, 18, 39, 26, 
+             21, 47, 1, 28, 22)
+  ),
+  
+  # Pacific Flyway
+  pacific = tibble(
+    state_abbr = c("AK", "WA", "OR", "CA", "ID", "NV", "UT", "AZ"),
+    fips = c(2, 53, 41, 6, 16, 32, 49, 4)
+  )
+)
+
+# Set seed for reproducibility
+
+set.seed(23)
+
+# Randomly select one state from each flyway
+
+sampled_states <- bind_rows(
+  flyway_states$atlantic %>% slice_sample(n = 1) %>% mutate(flyway = "Atlantic"),
+  flyway_states$mississippi %>% slice_sample(n = 1) %>% mutate(flyway = "Mississippi"),
+  flyway_states$pacific %>% slice_sample(n = 1) %>% mutate(flyway = "Pacific")
+)
+
+cat("=== FLYWAY SENSITIVITY ANALYSIS ===\n")
+cat("Randomly selected one state from each flyway:\n")
+print(sampled_states)
+
+# Extract FIPS codes for the educationdata query
+
+selected_fips <- sampled_states$fips
+
+# ============================================================================
+# DATA PULL
+# ============================================================================
+
+# Pull IPEDS directory data for 2024 - most recent year
 
 ipeds_raw <- get_education_data(
   level = "college-university",
   source = "ipeds",
   topic = "directory",
   filters = list(year = 2023,
-                 fips = c(48, 40, 20)),  # TX=48, OK=40, KS=20
+                 fips = selected_fips),
   add_labels = TRUE
 )
 
-################### Data filter
+cat("\nInitial campuses pulled:", nrow(ipeds_raw), "\n")
+
+# ============================================================================
+# DATA FILTER
+# ============================================================================
 
 # Filter out non-degree granting and trade schools
 
@@ -60,7 +120,13 @@ campus_data <- campus_data %>%
 campus_data <- campus_data %>%
   filter(!inst_size == "Not applicable")
 
-############### Add in enrollment numbers
+cat("Campuses after filtering:", nrow(campus_data), "\n")
+cat("\nCampuses by state:\n")
+print(campus_data %>% count(state_abbr))
+
+# ============================================================================
+# ADD ENROLLMENT
+# ============================================================================
 
 # Pull IPEDS enrollment data for 2021 - most recent year
 
@@ -69,7 +135,7 @@ ipeds_raw <- get_education_data(
   source = "ipeds",
   topic = "enrollment-headcount",
   filters = list(year = 2021,
-                 fips = c(48, 40, 20)),  # TX=48, OK=40, KS=20
+                 fips = selected_fips),
   add_labels = TRUE
 )
 
@@ -98,7 +164,39 @@ ipeds_campus_wide <- ipeds_campus %>%
 campus_data <- campus_data %>%
   left_join(ipeds_campus_wide, by = "unitid")
 
-# Save data for manual filtering 
+# Add flyway information
 
-write.csv(campus_data, "data/campus_data_pull_raw.csv", row.names = FALSE)
+campus_data <- campus_data %>%
+  left_join(sampled_states %>% select(state_abbr, flyway, fips), by = "state_abbr")
 
+# ============================================================================
+# SAVE OUTPUT
+# ============================================================================
+
+# Create informative filename with states and flyways
+output_filename <- paste0("data/campus_data_pull_raw_SENSITIVITY_FLYWAY_",
+                          paste(sampled_states$state_abbr, collapse = "_"),
+                          ".csv")
+
+write.csv(campus_data, output_filename, row.names = FALSE)
+
+# Save state selection for reproducibility
+
+write.csv(sampled_states, 
+          "data/sampled_flyway_states.csv",
+          row.names = FALSE)
+
+cat("\nData saved to:", output_filename, "\n")
+
+# ============================================================================
+# SUMMARY
+# ============================================================================
+
+cat("\n=== SUMMARY ===\n")
+cat("Random seed: 23\n")
+cat("Atlantic Flyway:", sampled_states$state_abbr[sampled_states$flyway == "Atlantic"], "\n")
+cat("Mississippi Flyway:", sampled_states$state_abbr[sampled_states$flyway == "Mississippi"], "\n")
+cat("Pacific Flyway:", sampled_states$state_abbr[sampled_states$flyway == "Pacific"], "\n")
+cat("Total campuses pulled:", nrow(campus_data), "\n\n")
+cat("Campuses by state and flyway:\n")
+print(campus_data %>% count(state_abbr, flyway))

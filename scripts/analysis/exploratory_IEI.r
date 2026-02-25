@@ -19,7 +19,7 @@ setwd("~/Desktop/project_code/campus_community_science/data")
 # LOAD DATA
 # ============================================================================
 
-campus_pca <- read.csv("campus_data_with_pca.csv")
+campus_pca <- read.csv("sensitivity_test.csv")
 
 cat("Total rows:", nrow(campus_pca), "\n")
 cat("Missing values: None - ready for PCA!\n")
