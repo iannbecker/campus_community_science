@@ -216,12 +216,12 @@ hotspot_visits_t <- tilt_coords(hotspot_visits)
 # The tilted map underneath gives the 3D illusion.
 ##############################
 
-build_spikes_t <- function(visits_t, counties_df, frac = SPIKE_FRAC) {
+build_spikes_t <- function(visits_t, counties_df, frac = SPIKE_FRAC, max_v_override = NULL) {
   # Scale spike height relative to the bbox of the tilted map,
   # so spikes are always proportionate regardless of coordinate inflation.
   bbox_h <- diff(range(counties_df$Y))
   max_h  <- bbox_h * frac
-  max_v  <- max(visits_t$n_visits)
+  max_v  <- if (!is.null(max_v_override)) max_v_override else max(visits_t$n_visits)
   visits_t %>%
     mutate(
       spike_h  = (n_visits / max_v) * max_h,
@@ -232,8 +232,11 @@ build_spikes_t <- function(visits_t, counties_df, frac = SPIKE_FRAC) {
     )
 }
 
-campus_spikes  <- build_spikes_t(campus_visits_t,  campus_counties_df)
-hotspot_spikes <- build_spikes_t(hotspot_visits_t, hotspot_counties_df)
+# Use a shared max_v so spike heights are on the same scale across panels
+global_max_v <- max(campus_visits_t$n_visits, hotspot_visits_t$n_visits)
+
+campus_spikes  <- build_spikes_t(campus_visits_t,  campus_counties_df,  max_v_override = global_max_v)
+hotspot_spikes <- build_spikes_t(hotspot_visits_t, hotspot_counties_df, max_v_override = global_max_v)
 
 ##############################
 # PANEL BUILDER
@@ -255,7 +258,40 @@ make_panel <- function(counties_df, main_county_name,
   xlim <- c(min(all_poly_x) - map_w * 0.06,
             max(all_poly_x) + map_w * 0.06)
   ylim <- c(min(all_poly_y) - map_h * 0.06,
-            max(spikes$y_top) + map_h * 0.15)
+            max(spikes$y_top) + map_h * 0.30)
+  
+  # --- Scale bar precomputation ---
+  # 100 km ≈ 0.90 degrees lon at ~30N; each block = 25 km = 0.225 deg
+  sb_deg_total <- 0.90
+  sb_n_blocks  <- 4          # 4 x 25 km = 100 km
+  sb_block_len <- (sb_deg_total * transform_mat[1, 1]) / sb_n_blocks
+  sb_x0        <- min(all_poly_x) + map_w * 0.05
+  sb_y0        <- min(all_poly_y) - map_h * 0.12
+  sb_bar_h     <- map_h * 0.018   # height of each filled block
+  
+  # Alternating filled blocks
+  sb_blocks <- data.frame(
+    xmin  = sb_x0 + (0:(sb_n_blocks-1)) * sb_block_len,
+    xmax  = sb_x0 + (1:sb_n_blocks)     * sb_block_len,
+    ymin  = sb_y0,
+    ymax  = sb_y0 + sb_bar_h,
+    fill  = ifelse((0:(sb_n_blocks-1)) %% 2 == 0, "black", "white")
+  )
+  
+  # Tick labels: 0, 25, 50, 75, 100 km
+  sb_labels <- data.frame(
+    x     = sb_x0 + (0:sb_n_blocks) * sb_block_len,
+    y     = sb_y0 - map_h * 0.018,
+    label = c("0", "25", "50", "75", "100 km")
+  )
+  
+  # Outer border around full bar
+  sb_border <- data.frame(
+    x    = sb_x0,
+    xend = sb_x0 + sb_n_blocks * sb_block_len,
+    y    = sb_y0,
+    yend = sb_y0
+  )
   
   ggplot() +
     
@@ -297,16 +333,31 @@ make_panel <- function(counties_df, main_county_name,
                aes(x = x_base, y = y_base),
                size = 1.2, color = "gray30", alpha = 0.5) +
     
+    # --- Scale bar ---
+    geom_rect(data = sb_blocks,
+              aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+              fill = I(sb_blocks$fill),
+              color = "black", linewidth = 0.4, inherit.aes = FALSE) +
+    geom_text(data = sb_labels,
+              aes(x = x, y = y, label = label),
+              size = 4.5, vjust = 1, inherit.aes = FALSE) +
+    
+    # --- size scale ---
+    scale_size_continuous(
+      name = "Visits",
+      breaks = c(1, 5, 10, 20),
+      range = c(2, 8)
+    ) +
+    
     coord_fixed(ratio = 1, xlim = xlim, ylim = ylim, expand = FALSE, clip = "off") +
     theme_void() +
     theme(
-      plot.title      = element_text(size = 18, face = "bold", hjust = 0.5,
-                                     margin = margin(b = 4)),
+      
       legend.position = "none",
       plot.margin     = margin(5, 5, 5, 5),
       plot.background = element_rect(fill = "white", color = NA)
     ) +
-    labs(title = title_label)
+    labs(title = NULL)
 }
 
 p_campus <- make_panel(
