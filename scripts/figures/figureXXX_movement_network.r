@@ -1,6 +1,6 @@
 ##############################
 #
-# Movement Paths - ONLY COUNTIES WITH DATA
+# Movement Paths - ONLY COUNTIES WITH DATA (FIX THIS)
 #
 ##############################
 
@@ -248,7 +248,7 @@ p_hotspot <- ggplot() +
 # COMBINE
 ##############################
 
-p_combined <- p_campus | p_hotspot
+p_combined <- p_campus / p_hotspot
 
 ggsave(path = output_dir, "texas_movement_data_counties_only.png", p_combined, width = 14, height = 7, dpi = 300)
 

@@ -280,7 +280,7 @@ venn_data <- euler(c(
 ))
 
 plot(venn_data,
-     fills = list(fill = c("#FFB703", "#023047"), alpha = 0.4),
+     fills = list(fill = c("#FFB703", "#023047"), alpha = 1),
      quantities = FALSE,
      labels = FALSE)
 

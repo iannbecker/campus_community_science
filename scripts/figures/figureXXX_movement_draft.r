@@ -233,7 +233,8 @@ build_spikes_t <- function(visits_t, counties_df, frac = SPIKE_FRAC, max_v_overr
 }
 
 # Use a shared max_v so spike heights are on the same scale across panels
-global_max_v <- max(campus_visits_t$n_visits, hotspot_visits_t$n_visits)
+global_max_v    <- max(campus_visits_t$n_visits, hotspot_visits_t$n_visits)
+global_max_size <- global_max_v  # used for consistent size scale across panels
 
 campus_spikes  <- build_spikes_t(campus_visits_t,  campus_counties_df,  max_v_override = global_max_v)
 hotspot_spikes <- build_spikes_t(hotspot_visits_t, hotspot_counties_df, max_v_override = global_max_v)
@@ -243,7 +244,8 @@ hotspot_spikes <- build_spikes_t(hotspot_visits_t, hotspot_counties_df, max_v_ov
 ##############################
 
 make_panel <- function(counties_df, main_county_name,
-                       segs_t, spikes, line_color, title_label) {
+                       segs_t, spikes, line_color, title_label,
+                       size_max = 1, show_legend = FALSE) {
   
   main_df <- counties_df %>% filter(NAME == main_county_name)
   
@@ -326,7 +328,16 @@ make_panel <- function(counties_df, main_county_name,
     scale_fill_manual(values = c("Start"   = "#E63946",
                                  "Visited" = line_color),
                       guide = "none") +
-    scale_size_continuous(range = c(2, 8), guide = "none") +
+    scale_size_continuous(
+      range  = c(2, 8),
+      limits = c(1, size_max),
+      breaks = pretty(c(1, size_max), n = 4),
+      name   = "Visits",
+      guide  = if (show_legend) guide_legend(override.aes = list(shape = 21,
+                                                                 fill  = "gray50",
+                                                                 color = "white")) 
+      else "none"
+    ) +
     
     # --- Floor footprint dots ---
     geom_point(data = spikes,
@@ -340,20 +351,15 @@ make_panel <- function(counties_df, main_county_name,
               color = "black", linewidth = 0.4, inherit.aes = FALSE) +
     geom_text(data = sb_labels,
               aes(x = x, y = y, label = label),
-              size = 4.5, vjust = 1, inherit.aes = FALSE) +
-    
-    # --- size scale ---
-    scale_size_continuous(
-      name = "Visits",
-      breaks = c(1, 5, 10, 20),
-      range = c(2, 8)
-    ) +
+              size = 2.8, vjust = 1, inherit.aes = FALSE) +
     
     coord_fixed(ratio = 1, xlim = xlim, ylim = ylim, expand = FALSE, clip = "off") +
     theme_void() +
     theme(
       
-      legend.position = "none",
+      legend.position = if (show_legend) "right" else "none",
+      legend.title    = element_text(size = 9),
+      legend.text     = element_text(size = 8),
       plot.margin     = margin(5, 5, 5, 5),
       plot.background = element_rect(fill = "white", color = NA)
     ) +
@@ -363,13 +369,15 @@ make_panel <- function(counties_df, main_county_name,
 p_campus <- make_panel(
   campus_counties_df,  campus_main_county,
   campus_segs_t,  campus_spikes,
-  "#FFB703", "Campus"
+  "#FFB703", "Campus",
+  size_max = global_max_size, show_legend = FALSE
 )
 
 p_hotspot <- make_panel(
   hotspot_counties_df, hotspot_main_county,
   hotspot_segs_t, hotspot_spikes,
-  "#023047", "Hotspot"
+  "#023047", "Hotspot",
+  size_max = global_max_size, show_legend = TRUE
 )
 
 ##############################

@@ -58,7 +58,8 @@ p2_linear <- ggplot(campus_summary, aes(x = n_checklists)) +
   labs(x = "Checklists per campus", y = "Count", title = "(B) Linear scale") +
   theme_minimal()
 
-# Natural log scale (what log link "sees")
+# Natural log scale 
+
 p1_log <- ggplot(campus_summary, aes(x = n_observers)) +
   geom_histogram(bins = 30, fill = "#FFB703", color = "black", alpha = 0.8) +
   scale_x_continuous(trans = "log", breaks = c(1, 10, 100, 1000)) +
@@ -72,6 +73,7 @@ p2_log <- ggplot(campus_summary, aes(x = n_checklists)) +
   theme_minimal()
 
 # Combine: linear on top, log on bottom
+
 combined <- (p1_linear + p2_linear) / (p1_log + p2_log)
 
 ggsave("FigureSX_sampling_distribution_both.png", combined, width = 10, height = 8, dpi = 600)
