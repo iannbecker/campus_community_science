@@ -17,12 +17,12 @@ library(sf)
 library(tigris)
 library(ggplot2)
 library(patchwork)
-library(layer)   # install.packages("layer")
+library(layer)   
 
 options(tigris_use_cache = TRUE)
 
-setwd("/Users/ianbecker/Desktop/project_code/campus_community_science/data")
-output_dir <- "/Users/ianbecker/Desktop/project_code/campus_community_science/figures_tables"
+setwd("PATH HERE")
+output_dir <- "PATH HERE"
 
 ##############################
 # TILT PARAMETERS
