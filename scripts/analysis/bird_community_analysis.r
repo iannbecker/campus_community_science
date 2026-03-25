@@ -13,7 +13,7 @@ library(tidyverse)
 library(sf)
 library(vegan)
 
-setwd("~/Desktop/project_code/campus_community_science/data")
+setwd("PATH HERE")
 
 # ============================================================================
 # COMBINE OBSERVATION DATA (PRELIMINARY)

@@ -6,11 +6,13 @@
 #
 ##############################
 
+# This script analyzes observer dynamics (non-movement) between campuses and hotspots
+
 library(tidyverse)
 library(ggplot2)
 library(car)
 
-setwd("~/Desktop/project_code/campus_community_science/data")
+setwd("PATH HERE")
 
 # ============================================================================
 # LOAD AND PREP DATA
@@ -124,5 +126,6 @@ hotspot_visitors %>%
   head(10)
 
 # check maximum visitors 
+
 max(campus_visitors$unique_visitors)
 max(hotspot_visitors$unique_visitors)
