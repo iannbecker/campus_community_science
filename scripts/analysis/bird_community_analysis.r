@@ -1,9 +1,13 @@
 ##############################
 #
-# Bird Analysis Campus vs. Hotspots
-# Using currently available variables
+# Community Analysis
+# Ian Becker
+# March 2026
 #
 ##############################
+
+# This script calculates species richness, similarity, and rare species occurrence 
+# between campuses and hotspots. It also makes the venn diagram used for figure 6 in the main text.
 
 library(tidyverse)
 library(sf)
@@ -58,10 +62,6 @@ rm(campus_obs, hotspot_obs, single_UTRGV)
 
 all_obs <- read.csv("combined_bird_observations.csv")
 
-cat("===========================================\n")
-cat("SPECIES RICHNESS BY LOCATION\n")
-cat("===========================================\n")
-
 richness_by_location <- all_obs %>%
   group_by(location_id, location_type, state) %>%
   summarize(
@@ -73,6 +73,7 @@ richness_by_location <- all_obs %>%
   )
 
 # Summary stats
+
 summary_stats <- richness_by_location %>%
   group_by(location_type) %>%
   summarize(
@@ -88,32 +89,24 @@ summary_stats <- richness_by_location %>%
 print(summary_stats)
 
 # Mann-Whitney U test
+
 campus_rich <- richness_by_location %>% filter(location_type == "campus")
 hotspot_rich <- richness_by_location %>% filter(location_type == "hotspot")
 
 wilcox_test <- wilcox.test(campus_rich$species_richness, 
                            hotspot_rich$species_richness)
 
-cat("\n--- Mann-Whitney U Test ---\n")
-cat("Campus median:", median(campus_rich$species_richness), "\n")
-cat("Hotspot median:", median(hotspot_rich$species_richness), "\n")
-cat("W =", wilcox_test$statistic, "\n")
-cat("p-value =", format(wilcox_test$p.value, digits = 3), "\n\n")
-
 # Save richness data
+
 write.csv(richness_by_location, "species_richness_by_location.csv", row.names = FALSE)
 write.csv(summary_stats, "richness_summary_stats.csv", row.names = FALSE)
-cat("✓ Saved richness files\n\n")
 
-##############################
-# 2. POOLED COMMUNITY ANALYSIS
-##############################
-
-cat("===========================================\n")
-cat("POOLED COMMUNITY SIMILARITY\n")
-cat("===========================================\n")
+# ============================================================================
+# COMMUNITY ANALYSIS
+# ============================================================================
 
 # Total species by type
+
 pooled_species <- all_obs %>%
   group_by(location_type) %>%
   summarize(
@@ -125,6 +118,7 @@ pooled_species <- all_obs %>%
 print(pooled_species)
 
 # Get species lists
+
 campus_species <- all_obs %>% 
   filter(location_type == "campus") %>% 
   pull(scientific_name) %>% 
@@ -139,32 +133,22 @@ shared_species <- intersect(campus_species, hotspot_species)
 total_unique <- union(campus_species, hotspot_species)
 
 # Calculate indices
+
 jaccard_index <- length(shared_species) / length(total_unique)
 sorensen_index <- (2 * length(shared_species)) / (length(campus_species) + length(hotspot_species))
 
-cat("\n--- Community Similarity ---\n")
-cat("Campus species:", length(campus_species), "\n")
-cat("Hotspot species:", length(hotspot_species), "\n")
-cat("Shared species:", length(shared_species), "\n")
-cat("Total unique species:", length(total_unique), "\n")
-cat("Jaccard index:", round(jaccard_index, 3), 
-    "(", round(jaccard_index * 100, 1), "% overlap)\n")
-cat("Sorensen index:", round(sorensen_index, 3), "\n\n")
-
-##############################
-# RARE SPECIES - BY LOCATION OCCUPANCY
-##############################
-
-cat("===========================================\n")
-cat("RARE SPECIES BY LOCATION OCCUPANCY\n")
-cat("===========================================\n")
+# ============================================================================
+# RARE SPECIES BY OCCURRENCE
+# ============================================================================
 
 # Calculate presence/absence at each location
+
 species_by_location <- all_obs %>%
   group_by(scientific_name, common_name, location_type, location_id) %>%
   summarize(present = 1, .groups = "drop")
 
 # Count locations for each species
+
 species_occupancy <- species_by_location %>%
   group_by(scientific_name, common_name, location_type) %>%
   summarize(
@@ -179,18 +163,9 @@ species_occupancy <- species_by_location %>%
     hotspot_occupancy = (hotspot / 153) * 100  # 153 hotspots
   )
 
-# Test different thresholds
-cat("=== OCCUPANCY DISTRIBUTION ===\n")
-for (threshold in c(25, 20, 15, 10, 5, 2.5, 1)) {
-  n_rare_campus <- sum(species_occupancy$campus_occupancy > 0 & species_occupancy$campus_occupancy <= threshold)
-  n_rare_hotspot <- sum(species_occupancy$hotspot_occupancy > 0 & species_occupancy$hotspot_occupancy <= threshold)
-  cat("At ≤", threshold, "% of locations:\n")
-  cat("  Campus rare:", n_rare_campus, "\n")
-  cat("  Hotspot rare:", n_rare_hotspot, "\n\n")
-}
 
-# Use 10% threshold (found at ≤10% of locations)
-cat("=== USING 2.5% THRESHOLD ===\n")
+
+# Use 2.5% threshold (found at ≤2.5% of locations)
 
 campus_rare <- species_occupancy %>%
   filter(campus_occupancy > 0, campus_occupancy <= 2.5) %>%
@@ -203,48 +178,8 @@ hotspot_rare <- species_occupancy %>%
 all_rare <- union(campus_rare, hotspot_rare)
 shared_rare <- intersect(campus_rare, hotspot_rare)
 
-cat("Rare species (≤2.5% location occupancy):\n")
-cat("Total rare species:", length(all_rare), "\n")
-cat("Rare at campuses:", length(campus_rare), "\n")
-cat("Rare at hotspots:", length(hotspot_rare), "\n")
-cat("Rare at both:", length(shared_rare), "\n")
-cat("Campus-only rare:", length(setdiff(campus_rare, hotspot_rare)), "\n")
-cat("Hotspot-only rare:", length(setdiff(hotspot_rare, campus_rare)), "\n\n")
-
-##############################
-# SUMMARY FOR RESULTS
-##############################
-
-cat("===========================================\n")
-cat("SUMMARY FOR RESULTS SECTION\n")
-cat("===========================================\n")
-
-cat("\nSpecies Richness:\n")
-cat("Campuses (median =", median(campus_rich$species_richness), 
-    ", range =", min(campus_rich$species_richness), "-", max(campus_rich$species_richness), ")\n")
-cat("Hotspots (median =", median(hotspot_rich$species_richness), 
-    ", range =", min(hotspot_rich$species_richness), "-", max(hotspot_rich$species_richness), ")\n")
-cat("Mann-Whitney: W =", wilcox_test$statistic, ", p =", 
-    format(wilcox_test$p.value, digits = 3), "\n\n")
-
-cat("Community Overlap:\n")
-cat("Jaccard index =", round(jaccard_index, 3), 
-    "(", round(jaccard_index * 100, 1), "% species overlap)\n\n")
-
-cat("Rare Species:\n")
-cat(rare_summary$total_rare, "species occur in ≤2.5% of checklists\n")
-cat(rare_summary$campus_total, "(", 
-    round(rare_summary$campus_total / rare_summary$total_rare * 100, 1), 
-    "%) found on campuses\n")
-cat(rare_summary$hotspot_total, "(", 
-    round(rare_summary$hotspot_total / rare_summary$total_rare * 100, 1), 
-    "%) found at hotspots\n")
-
-cat("\n===========================================\n")
-cat("ANALYSIS COMPLETE!\n")
-cat("===========================================\n")
-
 # Get campus-only and hotspot-only rare species names
+
 campus_only_rare <- species_occupancy %>%
   filter(campus_occupancy > 0, campus_occupancy <= 2.5,
          hotspot_occupancy == 0) %>%
@@ -257,22 +192,22 @@ hotspot_only_rare <- species_occupancy %>%
   select(scientific_name, common_name, hotspot_occupancy) %>%
   arrange(hotspot_occupancy)
 
-print(campus_only_rare)
-print(hotspot_only_rare, n = 25)
-
 # Get most common shared species (highest occurrence in both)
+
 shared_common <- species_occupancy %>%
   filter(campus_occupancy > 0, hotspot_occupancy > 0) %>%
   mutate(avg_occupancy = (campus_occupancy + hotspot_occupancy) / 2) %>%
   arrange(desc(avg_occupancy)) %>%
   select(scientific_name, common_name, campus_occupancy, hotspot_occupancy, avg_occupancy)
 
-cat("Top 10 most common shared species:\n")
-print(shared_common, n = 50)
+# ============================================================================
+# VENN DIAGRAM
+# ============================================================================
 
 library(eulerr)
 
 # Create proportional Venn diagram
+
 venn_data <- euler(c(
   "Campus" = 60,      # campus only rare
   "Hotspot" = 66,     # hotspot only rare
