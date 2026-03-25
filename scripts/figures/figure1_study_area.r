@@ -6,6 +6,8 @@
 #
 ##############################
 
+# This script creates figure 1 in the main text 
+
 library(ggplot2)
 library(sf)
 library(terra)
@@ -14,7 +16,7 @@ library(dplyr)
 library(ggspatial)
 
 options(tigris_use_cache = TRUE)
-setwd("~/Desktop/project_code/campus_community_science/data")
+setwd("PATH HERE")
 
 # ============================================================================
 # LOAD AND PREP DATA

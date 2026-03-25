@@ -12,6 +12,7 @@
 library(tidyverse)
 library(sf)
 library(vegan)
+library(eulerr)
 
 setwd("PATH HERE")
 
@@ -203,8 +204,6 @@ shared_common <- species_occupancy %>%
 # ============================================================================
 # VENN DIAGRAM
 # ============================================================================
-
-library(eulerr)
 
 # Create proportional Venn diagram
 
