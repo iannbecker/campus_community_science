@@ -98,6 +98,7 @@ for(state_abbr in sensitivity_states) {
     )
   
   # Save main map
+  
   main_filename <- paste0("figureSX_", state_abbr, "_campuses.png")
   ggsave(main_filename, plot = main_map, 
          width = 8, height = 10, dpi = 600, bg = "white")
@@ -115,6 +116,7 @@ for(state_abbr in sensitivity_states) {
     theme(legend.position = "none")
   
   # Save inset map
+  
   inset_filename <- paste0("figureSX_", state_abbr, "_inset.png")
   ggsave(inset_filename, plot = inset_map,
          width = 4, height = 2.5, dpi = 600, bg = "white")
