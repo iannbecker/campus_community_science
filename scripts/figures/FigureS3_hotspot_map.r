@@ -1,10 +1,13 @@
 ##############################
 #
-# Figure SX: Study Area Map (Hotspots)
+# Figure S3: Study Area Map (Hotspots)
 # Ian Becker
 # January 2026
 #
 ##############################
+
+# This script makes Figure S3 in the supplementary material. This makes a study 
+# area map of all included hotspots in our study. 
 
 library(ggplot2)
 library(sf)
@@ -14,7 +17,7 @@ library(dplyr)
 library(ggspatial)
 
 options(tigris_use_cache = TRUE)
-setwd("~/Desktop/project_code/campus_community_science/data")
+setwd("PATH HERE")
 
 # ============================================================================
 # LOAD AND PREP DATA
@@ -127,7 +130,7 @@ print(study_area_map)
 
 # Save
 
-ggsave("figureXX_hotspot_map.png", plot = study_area_map, 
+ggsave("FigureS3_hotspot_map.png", plot = study_area_map, 
        width = 8, height = 8, dpi = 600, bg = "white")
 
 # ============================================================================
@@ -147,5 +150,5 @@ inset_map <- ggplot() +
   theme_void() +
   theme(legend.position = "none")
 
-ggsave("figureSXX_inset_us.png", plot = inset_map,
+ggsave("FigureS3_inset_us.png", plot = inset_map,
        width = 4, height = 2.5, dpi = 600, bg = "white")
