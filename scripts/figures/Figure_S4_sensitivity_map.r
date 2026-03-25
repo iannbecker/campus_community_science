@@ -1,37 +1,44 @@
 ##############################
 #
-# Figure SX: Sensitivity Analysis State Maps
+# Figure S4: Sensitivity Analysis State Maps
 # Ian Becker
 # March 2026
 #
 ##############################
+
+# This script makes maps of campuses in states used for our geographic 
+# sensitivity analysis. This makes Figure S4 in the supplementary materials. 
 
 library(ggplot2)
 library(sf)
 library(tigris)
 library(dplyr)
 library(ggspatial)
+
 options(tigris_use_cache = TRUE)
 
-setwd("~/Desktop/project_code/campus_community_science/data")
+setwd("PATH HERE")
 
 # ============================================================================
 # LOAD MASTER DATA
 # ============================================================================
 
 # Load sensitivity analysis campus data
+
 campus_sensitivity <- read.csv("sensitivity_test.csv")
 
 # Define sensitivity states
+
 sensitivity_states <- c("OR", "NJ", "AL")
 
 # All contiguous US states for insets (load once)
+
 us_all <- states(cb = TRUE) %>%
   filter(!STUSPS %in% c("AK", "HI", "PR", "VI", "GU", "MP", "AS")) %>%
   st_transform(crs = 4326)
 
 # ============================================================================
-# LOOP THROUGH STATES
+# PLOTTING LOOP THROUGH STATES
 # ============================================================================
 
 for(state_abbr in sensitivity_states) {
@@ -41,17 +48,20 @@ for(state_abbr in sensitivity_states) {
   cat("========================================\n")
   
   # Filter campuses for this state
+  
   state_campuses <- campus_sensitivity %>%
     filter(state_abbr == !!state_abbr)
   
   cat("Found", nrow(state_campuses), "campuses in", state_abbr, "\n")
   
   # Get state boundary
+  
   state_boundary <- states(cb = TRUE) %>%
     filter(STUSPS == state_abbr) %>%
     st_transform(crs = 4326)
   
   # Convert campuses to sf
+  
   campus_sf <- st_as_sf(state_campuses, 
                         coords = c("longitude", "latitude"), 
                         crs = 4326) %>%
@@ -111,9 +121,3 @@ for(state_abbr in sensitivity_states) {
   cat("✓ Saved:", inset_filename, "\n")
   
 }
-
-cat("\n========================================\n")
-cat("✓ All maps complete! Created 6 files:\n")
-cat("  - 3 main campus maps\n")
-cat("  - 3 US inset maps\n")
-cat("========================================\n")
