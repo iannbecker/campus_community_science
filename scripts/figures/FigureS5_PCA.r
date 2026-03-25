@@ -1,10 +1,13 @@
 ##############################
 #
-# Figure SXXXX: PCA results figure
+# Figure S5: PCA results 
 # Ian Becker
 # March 2026
 #
 ##############################
+
+# This script makes Figure S5 in the supplemental materials.
+# This compares PC1 and PC2
 
 library(ggplot2)
 
