@@ -12,10 +12,10 @@ library(sf)
 library(terra)
 library(dplyr)
 
-setwd("~/Desktop/project_code/campus_community_science/data")
+setwd("PATH HERE")
 
 # ============================================================================
-# LOAD IN DATA 
+# LOAD AND PREP DATA 
 # ============================================================================
 
 # Load in urbanization data
@@ -28,24 +28,13 @@ land_cover_nlcd <- rast("NLCD_landcover.tif")
 
 # Load in campus boundaries 
 
-campus_boundaries <- st_read("campus_polygons_SENSITIVITY_ANALYSIS")
+campus_boundaries <- st_read("campus_polygons_MASTER")
 
 # Load in campus data 
 
-campus_data <- read.csv("campus_filtered_SENSITIVITY_ANALYSIS.csv")
+campus_data <- read.csv("campus_filtered_data.csv")
 
-# ============================================================================
-# PREP DATA FOR ENVIRONMENTAL VARIABLES
-# ============================================================================
-
-# Fix UTRGV - Edinburg name in shapefile
-
-#campus_boundaries <- campus_boundaries %>%
- # mutate(inst_name = ifelse(inst_name == "The University of Texas Rio Grande Valley", 
-  #                          "The University of Texas Rio Grande Valley - Edinburg", 
-   #                         inst_name))
-
-# Filter campus boundaries to only those with IEI data
+# Filter campus boundaries to only those with engagement data
 
 campus_boundaries_filtered <- campus_boundaries %>%
   filter(inst_name %in% campus_data$inst_name)
@@ -60,7 +49,7 @@ campus_centroids <- st_centroid(campus_boundaries_filtered)
 
 # Transform to projected CRS for buffering (meters)
 
-campus_centroids_proj <- st_transform(campus_centroids, 5070)  # Albers Equal Area
+campus_centroids_proj <- st_transform(campus_centroids, 5070)  
 
 # Create 5km and 10km buffers
 
@@ -95,7 +84,7 @@ impervious_10km <- terra::extract(
 campus_boundaries_filtered$impervious_5km <- impervious_5km$NLCD_impervious
 campus_boundaries_filtered$impervious_10km <- impervious_10km$NLCD_impervious
 
-# Compare distributions
+# Check distributions
 
 par(mfrow = c(1, 2))
 hist(campus_boundaries_filtered$impervious_5km, 
@@ -115,7 +104,7 @@ cat("\nCorrelation between 5km and 10km buffers:",
 # EXTRACT ON-CAMPUS GREEN SPACE
 # ============================================================================
 
-# Use the campus polygons directly (not buffers) for habitat quality
+# Use the campus polygons for habitat quality
 
 campus_boundaries_proj <- st_transform(campus_boundaries_filtered, crs(land_cover_nlcd))
 
@@ -145,7 +134,7 @@ hist(campus_boundaries_filtered$pct_vegetation_campus,
      main = "On-Campus Vegetation Cover %",
      xlab = "Vegetation %")
 
-# Merge both urban for now
+# Merge environmental data with master dataset
 
 campus_data_env <- campus_data %>%
   left_join(
@@ -155,14 +144,6 @@ campus_data_env <- campus_data %>%
     by = "inst_name"
   )
 
-# Quick correlation check
+# Save dataset
 
-cat("\nCorrelation with checklist counts:\n")
-cat("5km buffer:", cor(campus_data_env$checklist_count, 
-                       campus_data_env$impervious_5km, use = "complete.obs"), "\n")
-cat("10km buffer:", cor(campus_data_env$checklist_count, 
-                        campus_data_env$impervious_10km, use = "complete.obs"), "\n")
-
-# Save
-
-write.csv(campus_data_env, "campus_filter_with_environment_SENSITIVITY_ANALYSIS.csv", row.names = FALSE)
+write.csv(campus_data_env, "campus_filter_with_environment.csv", row.names = FALSE)
