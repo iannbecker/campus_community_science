@@ -7,7 +7,7 @@
 ##################
 
 # This script pulls campus polygons from OpenStreetMap using filtered IPEDS data
-# Output: Shapefile/GeoPackage with unitid and inst_name for joining checklist counts
+# Output: Shapefile with unitid and inst_name for joining checklist counts
 
 library(osmdata)
 library(sf)
@@ -19,12 +19,12 @@ setwd("")
 # LOAD DATA
 # =============================================================================
 
-campus_data <- read.csv("data/campus_data_pull_enrollment.csv")
+campus_data <- read.csv("data/campus_data.csv")
 
-cat("Loaded", nrow(campus_data), "campuses\n")
+nrow(campus_data)
 
 # =============================================================================
-# FUNCTION: Query OSM for campus polygon (with retry logic + multipolygon support)
+# FUNCTION: Query OSM for campus polygons (with retry logic + multipolygon support)
 # =============================================================================
 
 get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max_retries = 3) {
@@ -32,6 +32,7 @@ get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max
   cat("Processing:", name, "\n")
   
   # Create bounding box around point (search_radius in meters)
+  
   bbox <- st_point(c(lon, lat)) %>%
     st_sfc(crs = 4326) %>%
     st_transform(3857) %>%
@@ -40,20 +41,24 @@ get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max
     st_bbox()
   
   # Retry loop
+  
   for (attempt in 1:max_retries) {
     
     result <- tryCatch({
       
       # Query OSM with longer timeout
+      
       query <- opq(bbox = bbox, timeout = 120) %>%
         add_osm_feature(key = "amenity", value = c("university", "college")) %>%
         osmdata_sf()
       
       # Check both polygons AND multipolygons
+      
       polys <- query$osm_polygons
       mpolys <- query$osm_multipolygons
       
       # Combine if both exist
+      
       if (!is.null(polys) && nrow(polys) > 0 && !is.null(mpolys) && nrow(mpolys) > 0) {
         all_polys <- rbind(
           st_sf(geometry = st_geometry(polys)),
@@ -67,12 +72,14 @@ get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max
         return(list(success = TRUE, data = NULL))  # No polygon found, but no error
       }
       
-      # Get the largest polygon (most likely the main campus)
+      # Get the largest polygon (most likely main campus)
+      
       all_polys$area <- st_area(all_polys)
       largest_idx <- which.max(all_polys$area)
       polygon <- all_polys[largest_idx, ] %>% st_geometry()
       
       # Create sf object with campus metadata
+      
       campus_sf <- st_sf(
         unitid = unitid,
         inst_name = name,
@@ -90,6 +97,7 @@ get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max
     })
     
     # If successful (even if no polygon found), return
+    
     if (result$success) {
       if (!is.null(result$data)) {
         cat("  -> Found polygon\n")
@@ -100,6 +108,7 @@ get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max
     }
     
     # If error and retries left, wait and retry
+    
     if (attempt < max_retries) {
       wait_time <- 2^attempt * 3  # 6, 12, 24 seconds
       cat("  Attempt", attempt, "failed:", result$error, "\n")
@@ -111,6 +120,7 @@ get_campus_polygon <- function(unitid, lat, lon, name, search_radius = 1000, max
   }
   
   # All retries exhausted
+  
   return(NULL)
 }
 
@@ -135,7 +145,8 @@ for(i in 1:nrow(campus_data)) {
     campus_polygons_list[[length(campus_polygons_list) + 1]] <- result
   }
   
-  # Be nice to OSM servers
+  # Account for OSM server timeout
+  
   Sys.sleep(3)
 }
 
@@ -146,9 +157,11 @@ for(i in 1:nrow(campus_data)) {
 if (length(campus_polygons_list) > 0) {
   
   # Combine all polygons
+  
   campus_polygons_sf <- do.call(rbind, campus_polygons_list)
   
   # Print summary
+  
   cat("\n===========================================\n")
   cat("RESULTS\n")
   cat("===========================================\n")
@@ -158,27 +171,20 @@ if (length(campus_polygons_list) > 0) {
   cat("Success rate:", round(nrow(campus_polygons_sf)/nrow(campus_data)*100, 1), "%\n")
   
   # Create output directory if needed
+  
   if (!dir.exists("data/processed")) {
     dir.create("data/processed", recursive = TRUE)
   }
   
-  # Save as GeoPackage (recommended - preserves full column names)
-  st_write(campus_polygons_sf, 
-           "data/processed/campus_polygons.gpkg", 
-           delete_dsn = TRUE)
-  cat("\nSaved to: data/processed/campus_polygons.gpkg\n")
+  # Save as Shapefile 
   
-  # Save as Shapefile (note: column names truncated to 10 chars)
   st_write(campus_polygons_sf, 
            "data/processed/campus_polygons.shp", 
            delete_dsn = TRUE)
   cat("Saved to: data/processed/campus_polygons.shp\n")
   
-  # =============================================================================
-  # CREATE TRACKING FILES
-  # =============================================================================
+  # Create summary file with polygon status for all campuses
   
-  # Summary with polygon status for all campuses
   campus_summary <- campus_data %>%
     mutate(polygon_found = unitid %in% campus_polygons_sf$unitid)
   
@@ -186,7 +192,8 @@ if (length(campus_polygons_list) > 0) {
             "data/processed/campus_with_polygon_status.csv", 
             row.names = FALSE)
   
-  # List of campuses needing manual polygon creation
+  # Create list of campuses needing manual polygon creation
+  
   no_polygon <- campus_summary %>% 
     filter(!polygon_found) %>%
     select(unitid, inst_name, latitude, longitude, state_abbr, urban_centric_locale)
@@ -201,7 +208,3 @@ if (length(campus_polygons_list) > 0) {
 } else {
   cat("\nERROR: No polygons found for any campus!\n")
 }
-
-cat("\n===========================================\n")
-cat("DONE\n")
-cat("===========================================\n")
