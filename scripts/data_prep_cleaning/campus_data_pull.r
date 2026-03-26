@@ -11,7 +11,9 @@
 library(educationdata)
 library(dplyr)
 
-#################### Data pull
+# ============================================================================
+# DATA PULL
+# ============================================================================
 
 # Pull IPEDS directory data for 2023 - most recent year
 
@@ -24,7 +26,9 @@ ipeds_raw <- get_education_data(
   add_labels = TRUE
 )
 
-################### Data filter
+# ============================================================================
+# DATA FILTERING
+# ============================================================================
 
 # Filter out non-degree granting and trade schools
 
@@ -60,7 +64,9 @@ campus_data <- campus_data %>%
 campus_data <- campus_data %>%
   filter(!inst_size == "Not applicable")
 
-############### Add in enrollment numbers
+# ============================================================================
+# ADD ENROLLMENT NUMBERS
+# ============================================================================
 
 # Pull IPEDS enrollment data for 2021 - most recent year
 
