@@ -7,5 +7,6 @@ data
 campus_community_science.Rproj
 figures_tables
 scripts/.DS_Store
+scripts/data_prep_cleaning/old_cluster
 
 
