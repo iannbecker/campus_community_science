@@ -1,65 +1,77 @@
 ##############################
 #
-# eBird Extraction + Campus Spatial Join
-# Combined workflow - processes state by state
-# College Campus Community Science Study
-#
-# MEMORY-EFFICIENT APPROACH:
-# - Process one state at a time
-# - Extract → Filter → Spatial Join → Count → Delete
-# - Never keeps full dataset in memory
-# - Only saves final campus counts (205 rows)
+# eBird Extraction + Campus checklist count
+# Ian Becker
+# May 2026
 #
 ##############################
 
+# This script was used to pull checklist counts for each campus
+# within our study area. The script reads in eBird data then uses
+# the campus shapefile to count all checklists submitted within 
+# campus boundaries. This script was originally setup to run on a
+# computing cluster. 
+
 # Libraries
+
 library(auk)
 library(dplyr)
 library(sf)
 library(lubridate)
 library(tidyr)
 
-##############################
-# STEP 1: Setup paths
-##############################
+# =============================================================================
+# DATA SETUP AND PREP
+# =============================================================================
 
 # eBird data directory
-ebd_dir <- "/home/ianbecker01/campus_cosci/data"
-sampling_dir <- "/home/ianbecker01/campus_cosci/data"
+
+ebd_dir <- "PATH HERE"
+sampling_dir <- "PATH HERE"
 
 # Campus polygon shapefile
-campus_shapefile <- "/home/ianbecker01/campus_cosci/data/campus_polygons_complete"  # UPDATE THIS PATH
+
+campus_shapefile <- "PATH HERE"  
 
 # Output directory
-output_dir <- "/home/ianbecker01/campus_cosci/data"
+
+output_dir <- "PATH HERE"
 
 # States to process
+
 states <- c("Texas", "Oklahoma", "Kansas")
 state_abbr <- c("TX", "OK", "KS")
 
 # Date range
+
 date_range <- c(as.Date("2015-01-01"), as.Date("2025-12-31"))
 
-##############################
-# STEP 2: Load campus polygons (once)
-##############################
+# Read in campus boundaries 
 
 cat("Loading campus polygon data...\n")
 campus_polygons <- st_read(campus_shapefile, quiet = TRUE)
+
+# Shapefile status check
 
 cat("Campus polygons loaded:", nrow(campus_polygons), "\n")
 cat("Expected column: unitid\n")
 cat("Columns in shapefile:", paste(names(campus_polygons), collapse = ", "), "\n\n")
 
 # Ensure CRS is WGS84
+
 if (st_crs(campus_polygons) != st_crs(4326)) {
   cat("Reprojecting campus polygons to WGS84...\n")
   campus_polygons <- st_transform(campus_polygons, crs = 4326)
 }
 
-##############################
-# STEP 3: Process each state
-##############################
+# =============================================================================
+# FUNCTION TO PROCESS EACH STATE
+# =============================================================================
+
+# This function first reads in eBird data, then filters checklists 
+# based on completeness, date range, and effort distance. It then counts 
+# how many unique checkists are submitted within each respective
+# campus' boundaries. 
 
 process_state_and_join <- function(state_name, state_code) {
   
@@ -68,10 +80,12 @@ process_state_and_join <- function(state_name, state_code) {
   cat("===========================================\n")
   
   # Construct file paths
+  
   ebd_file <- file.path(ebd_dir, paste0("ebd_US-", state_code, "_smp_relNov-2025.txt"))
   sampling_file <- file.path(sampling_dir, paste0("ebd_US-", state_code, "_smp_relNov-2025_sampling.txt"))
   
   # Check if files exist
+  
   if (!file.exists(ebd_file)) {
     cat("WARNING: EBD file not found - skipping", state_name, "\n")
     return(NULL)
@@ -81,7 +95,7 @@ process_state_and_join <- function(state_name, state_code) {
     return(NULL)
   }
   
-  # === PART A: Extract and filter eBird data ===
+  ##### EXTRACT AND FILTER EBIRD DATA #####
   
   cat("\nPart A: Extracting eBird data\n")
   
@@ -99,13 +113,15 @@ process_state_and_join <- function(state_name, state_code) {
   cat("  Reading filtered data...\n")
   ebd_data <- read_ebd(temp_output)
   
-  # Delete temp files
+  # Delete temp files for memory efficiency
+  
   file.remove(temp_output)
   file.remove(temp_sampling)
   
   cat("  Initial observations:", nrow(ebd_data), "\n")
   
   # Apply additional filters
+  
   ebd_filtered <- ebd_data %>%
     distinct(checklist_id, .keep_all = TRUE) %>%
     filter(is.na(effort_distance_km) | effort_distance_km <= 20)
@@ -113,14 +129,16 @@ process_state_and_join <- function(state_name, state_code) {
   cat("  After filters (unique + ≤20km):", nrow(ebd_filtered), "\n")
   
   # Clean up full observation data
+  
   rm(ebd_data)
   gc(verbose = FALSE)
   
-  # === PART B: Spatial join to campuses ===
+  ##### SPATIAL JOIN TO CAMPUSES #####
   
   cat("\nPart B: Spatial join to campus polygons\n")
   
   # Convert checklists to spatial points
+  
   cat("  Converting checklists to spatial points...\n")
   ebird_sf <- st_as_sf(
     ebd_filtered,
@@ -132,21 +150,23 @@ process_state_and_join <- function(state_name, state_code) {
   cat("  Spatial points created:", nrow(ebird_sf), "\n")
   
   # Spatial join (keep only checklists within campus polygons)
+  
   cat("  Performing spatial join (this may take a few minutes)...\n")
   checklists_on_campus <- st_join(
     ebird_sf,
     campus_polygons %>% select(unitid),  # Only keep unitid from campus data
     join = st_within,
-    left = FALSE  # Inner join - only keep matches
+    left = FALSE  
   )
   
   cat("  Checklists within campuses:", nrow(checklists_on_campus), "\n")
   
   # Clean up full spatial data
+  
   rm(ebird_sf, ebd_filtered)
   gc(verbose = FALSE)
   
-  # === PART C: Count checklists per campus ===
+  ##### COUNT CHECKLISTS PER CAMPUS #####
   
   cat("\nPart C: Counting checklists per campus\n")
   
@@ -174,6 +194,7 @@ process_state_and_join <- function(state_name, state_code) {
   }
   
   # Clean up spatial join data
+  
   rm(checklists_on_campus)
   gc(verbose = FALSE)
   
@@ -182,9 +203,9 @@ process_state_and_join <- function(state_name, state_code) {
   return(campus_counts)
 }
 
-##############################
-# STEP 4: Process all states
-##############################
+# =============================================================================
+# LOOP THROUGH EACH STATE 
+# =============================================================================
 
 cat("\n===========================================\n")
 cat("PROCESSING ALL STATES\n")
@@ -201,23 +222,26 @@ for (i in seq_along(states)) {
   cat("Completed", i, "of", length(states), "states\n")
 }
 
-##############################
-# STEP 5: Combine all state counts
-##############################
+# =============================================================================
+# CLEAN AND SAVE FINAL DATASET
+# =============================================================================
 
 cat("\n===========================================\n")
 cat("COMBINING STATE COUNTS\n")
 cat("===========================================\n")
 
 # Remove NULL entries (states that were skipped)
+
 state_counts_list <- state_counts_list[!sapply(state_counts_list, is.null)]
 
 if (length(state_counts_list) > 0) {
   
   # Combine all state counts
+  
   all_counts <- bind_rows(state_counts_list)
   
   # Sum counts across states for each campus
+  
   final_counts <- all_counts %>%
     group_by(unitid) %>%
     summarise(
@@ -227,6 +251,7 @@ if (length(state_counts_list) > 0) {
     )
   
   # Join back to full campus list (including those with 0 checklists)
+  
   campus_attributes <- campus_polygons %>%
     st_drop_geometry() %>%
     select(unitid, everything())
@@ -238,10 +263,6 @@ if (length(state_counts_list) > 0) {
       states_with_checklists = replace_na(states_with_checklists, "none")
     )
   
-  ##############################
-  # STEP 6: Save results
-  ##############################
-  
   cat("\n===========================================\n")
   cat("FINAL RESULTS\n")
   cat("===========================================\n")
@@ -252,6 +273,7 @@ if (length(state_counts_list) > 0) {
   cat("Total checklists:", sum(final_dataset$checklist_count), "\n\n")
   
   # Summary by state
+  
   cat("Campuses with checklists by state:\n")
   state_summary <- final_dataset %>%
     filter(checklist_count > 0) %>%
@@ -259,25 +281,19 @@ if (length(state_counts_list) > 0) {
   print(state_summary)
   
   # Save final counts
+  
   output_file <- file.path(output_dir, "campus_checklist_counts.csv")
   write.csv(final_dataset, output_file, row.names = FALSE)
   cat("\nSaved to:", output_file, "\n")
   
   # Save filtered version (only campuses with >0 checklists)
+  
   final_filtered <- final_dataset %>%
     filter(checklist_count > 0)
   
   output_filtered <- file.path(output_dir, "campus_checklist_counts_filtered.csv")
   write.csv(final_filtered, output_filtered, row.names = FALSE)
   cat("Saved filtered to:", output_filtered, "\n")
-  
-  # Top 10 campuses
-  cat("\nTop 10 campuses by checklist count:\n")
-  top10 <- final_dataset %>%
-    arrange(desc(checklist_count)) %>%
-    head(10) %>%
-    select(unitid, inst_name, checklist_count, states_with_checklists)
-  print(top10)
   
 } else {
   cat("\nNo data processed - check if eBird files exist!\n")
