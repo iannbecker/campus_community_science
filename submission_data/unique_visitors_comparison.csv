@@ -1,0 +1,307 @@
+location_id,location_name,unique_visitors,checklist_count,state_abbr,location_type
+222178,Abilene Christian University,29,80,TX,campus
+222576,Amarillo College,1,1,TX,campus
+222822,Angelina College,4,5,TX,campus
+222831,Angelo State University,9,16,TX,campus
+222983,Austin College,11,47,TX,campus
+223232,Baylor University,66,487,TX,campus
+223506,Brazosport College,5,6,TX,campus
+223816,Central Texas College,63,213,TX,campus
+224004,Concordia University Texas,22,176,TX,campus
+224110,North Central Texas College,1,2,TX,campus
+224147,Texas A & M University-Corpus Christi,27,80,TX,campus
+224226,Dallas Baptist University,8,12,TX,campus
+224323,University of Dallas,8,17,TX,campus
+224350,Del Mar College,4,6,TX,campus
+224527,East Texas Baptist University,2,3,TX,campus
+224545,Texas A&M University-Texarkana,4,10,TX,campus
+224554,Texas A & M University-Commerce,1,1,TX,campus
+224961,Galveston College,1,1,TX,campus
+225070,Grayson College,54,169,TX,campus
+225399,Houston Christian University,2,2,TX,campus
+225414,University of Houston-Clear Lake,124,499,TX,campus
+225432,University of Houston-Downtown,1,2,TX,campus
+225502,University of Houston-Victoria,2,3,TX,campus
+225511,University of Houston,29,395,TX,campus
+225548,Howard Payne University,2,3,TX,campus
+225575,Huston-Tillotson University,1,1,TX,campus
+225627,University of the Incarnate Word,136,374,TX,campus
+226019,Kilgore College,3,3,TX,campus
+226091,Lamar University,12,35,TX,campus
+226134,Laredo College,69,594,TX,campus
+226152,Texas A & M International University,69,148,TX,campus
+226204,Lee College,3,268,TX,campus
+226231,LeTourneau University,10,118,TX,campus
+226408,College of the Mainland,33,115,TX,campus
+226471,University of Mary Hardin-Baylor,4,52,TX,campus
+226578,McLennan Community College,12,37,TX,campus
+226587,McMurry University,3,10,TX,campus
+226806,Midland College,22,448,TX,campus
+226833,Midwestern State University,36,151,TX,campus
+227216,University of North Texas,68,159,TX,campus
+227331,Our Lady of the Lake University,1,1,TX,campus
+227368,The University of Texas Rio Grande Valley - Edinburg,45,368,TX,campus
+227386,Panola College,1,1,TX,campus
+227429,Paul Quinn College,1,1,TX,campus
+227526,Prairie View A & M University,3,3,TX,campus
+227757,Rice University,450,3443,TX,campus
+227845,Saint Edward's University,62,248,TX,campus
+227863,University of St Thomas,8,14,TX,campus
+227881,Sam Houston State University,39,72,TX,campus
+228042,Schreiner University,22,79,TX,campus
+228149,St. Mary's University,158,637,TX,campus
+228158,South Plains College,6,19,TX,campus
+228246,Southern Methodist University,28,31,TX,campus
+228316,Southwest Texas Junior College,5,5,TX,campus
+228343,Southwestern University,11,22,TX,campus
+228431,Stephen F Austin State University,130,445,TX,campus
+228459,Texas State University,834,3543,TX,campus
+228468,Southwestern Adventist University,4,6,TX,campus
+228501,Sul Ross State University,39,96,TX,campus
+228529,Tarleton State University,19,32,TX,campus
+228608,Temple College,1,6,TX,campus
+228699,Texarkana College,4,21,TX,campus
+228705,Texas A & M University-Kingsville,142,623,TX,campus
+228723,Texas A & M University-College Station,554,4789,TX,campus
+228769,The University of Texas at Arlington,17,78,TX,campus
+228778,The University of Texas at Austin,327,2602,TX,campus
+228787,The University of Texas at Dallas,38,115,TX,campus
+228796,The University of Texas at El Paso,75,820,TX,campus
+228802,The University of Texas at Tyler,33,90,TX,campus
+228875,Texas Christian University,56,223,TX,campus
+228981,Texas Lutheran University,9,60,TX,campus
+229018,The University of Texas Permian Basin,35,80,TX,campus
+229027,The University of Texas at San Antonio,48,205,TX,campus
+229063,Texas Southern University,1,1,TX,campus
+229115,Texas Tech University,132,971,TX,campus
+229160,Texas Wesleyan University,1,1,TX,campus
+229179,Texas Woman's University,8,53,TX,campus
+229267,Trinity University,136,374,TX,campus
+229540,Victoria College,2,3,TX,campus
+229780,Wayland Baptist University,7,69,TX,campus
+229814,West Texas A & M University,14,289,TX,campus
+229832,Western Texas College,7,11,TX,campus
+229841,Wharton County Junior College,2,4,TX,campus
+246354,Palo Alto College,7,28,TX,campus
+409315,South Texas College,4,4,TX,campus
+420398,Northwest Vista College,22,74,TX,campus
+475608,Criswell College,1,1,TX,campus
+483036,Texas A&M University-Central Texas,3,3,TX,campus
+488730,Northeast Lakeview College,4,25,TX,campus
+2273681,The University of Texas Rio Grande Valley - Brownsville Campus,2493,4727,TX,campus
+206862,Southern Nazarene University,2,3,OK,campus
+206914,Cameron University,1,5,OK,campus
+206941,University of Central Oklahoma,38,82,OK,campus
+206996,Connors State College,5,6,OK,campus
+207041,East Central University,3,3,OK,campus
+207050,Eastern Oklahoma State College,2,4,OK,campus
+207236,Murray State College,2,2,OK,campus
+207263,Northeastern State University,15,51,OK,campus
+207281,Northern Oklahoma College,1,1,OK,campus
+207290,Northeastern Oklahoma A&M College,1,1,OK,campus
+207306,Northwestern Oklahoma State University,6,24,OK,campus
+207324,Oklahoma Christian University,4,8,OK,campus
+207351,Oklahoma Panhandle State University,11,14,OK,campus
+207388,Oklahoma State University-Main Campus,420,2535,OK,campus
+207403,Oklahoma Baptist University,5,9,OK,campus
+207449,Oklahoma City Community College,22,133,OK,campus
+207458,Oklahoma City University,5,8,OK,campus
+207500,University of Oklahoma-Norman Campus,160,678,OK,campus
+207582,Oral Roberts University,6,15,OK,campus
+207661,Rogers State University,3,4,OK,campus
+207722,University of Science and Arts of Oklahoma,14,69,OK,campus
+207740,Seminole State College,7,13,OK,campus
+207847,Southeastern Oklahoma State University,5,7,OK,campus
+207856,Southwestern Christian University,2,3,OK,campus
+207865,Southwestern Oklahoma State University,2,2,OK,campus
+207971,University of Tulsa,14,211,OK,campus
+245953,Mid-America Christian University,1,1,OK,campus
+154688,Baker University,8,276,KS,campus
+154697,Barton County Community College,4,4,KS,campus
+154712,Benedictine College,26,298,KS,campus
+154721,Bethany College,2,2,KS,campus
+154749,Bethel College-North Newton,7,144,KS,campus
+154907,Cloud County Community College,3,3,KS,campus
+154925,Coffeyville Community College,1,1,KS,campus
+154934,Colby Community College,17,18,KS,campus
+154952,Cowley County Community College,2,140,KS,campus
+154998,Dodge City Community College,13,25,KS,campus
+155025,Emporia State University,17,47,KS,campus
+155061,Fort Hays State University,47,848,KS,campus
+155070,Barclay College,1,1,KS,campus
+155098,Fort Scott Community College,3,3,KS,campus
+155104,Garden City Community College,5,19,KS,campus
+155177,Hesston College,7,31,KS,campus
+155195,Hutchinson Community College,7,55,KS,campus
+155201,Independence Community College,2,2,KS,campus
+155210,Johnson County Community College,13,32,KS,campus
+155292,Kansas City Kansas Community College,1,3,KS,campus
+155308,Kansas Christian College,1,1,KS,campus
+155317,University of Kansas,120,1178,KS,campus
+155399,Kansas State University,261,1243,KS,campus
+155414,Kansas Wesleyan University,3,3,KS,campus
+155511,McPherson College,3,3,KS,campus
+155520,MidAmerica Nazarene University,5,19,KS,campus
+155618,Northwest Kansas Technical College,1,2,KS,campus
+155627,Ottawa University-Ottawa,5,5,KS,campus
+155681,Pittsburg State University,27,778,KS,campus
+155715,Pratt Community College,1,2,KS,campus
+155812,University of Saint Mary,7,72,KS,campus
+155830,Salina Area Technical College,1,1,KS,campus
+155900,Southwestern College,4,12,KS,campus
+155937,Sterling College,2,2,KS,campus
+155973,Tabor College,5,8,KS,campus
+156125,Wichita State University,24,43,KS,campus
+L22911139,Mission Reach/Medina River Connector Trl,23,38,TX,hotspot
+L23339086,Newton County Courthouse,4,4,TX,hotspot
+L5396619,Wayside Park,13,18,KS,hotspot
+L17982943,Turkey Creek--Closed S 18th St. Bridge,1,10,KS,hotspot
+L27460637,Rita Blanca Creek at FM998,4,4,TX,hotspot
+L1836165,Junction--Rodeo Grounds,4,4,TX,hotspot
+L3297333,Healy (town),8,10,KS,hotspot
+L3004694,Lake Creek Preserve (Montgomery Co.),43,126,TX,hotspot
+L4648366,"Woodland Heights, Houston",39,997,TX,hotspot
+L895598,Inn at Chachalaca Bend (NOW CLOSED),145,249,TX,hotspot
+L4758418,U Rd. Playa Lake,14,34,KS,hotspot
+L25646165,Hackberry Gully Regional Park,49,108,TX,hotspot
+L518209,Texas A&M--AgriLife Extension Ctr. (Jefferson Co.),23,120,TX,hotspot
+L2757184,ESU Woods,35,83,KS,hotspot
+L2935866,"Hillside Cemetery, Kinsley",17,27,KS,hotspot
+L4773353,Elk River Hiking Trail--West Trailhead,2,2,KS,hotspot
+L2688406,Tivoli Cemeteries,31,45,TX,hotspot
+L749212,Caprock Canyons SP--Lake Theo,94,126,TX,hotspot
+L2369508,College Station--TX30 at Carter Creek,8,15,TX,hotspot
+L4299964,Cherokee Lowlands WA--Michelson Property,11,21,KS,hotspot
+L4764280,Tyro Cemetery,3,3,KS,hotspot
+L27438801,"Memorial Park Cemetery, Dalhart",8,10,TX,hotspot
+L16851370,South Padre Is.--Shores Neighborhood,24,25,TX,hotspot
+L1161887,Loop 12 Boat Launch / wetlands area,119,408,TX,hotspot
+L42945679,Lake Palestine--Henderson Bay,1,10,TX,hotspot
+L3369396,"Grove Park, Baldwin City",3,3,KS,hotspot
+L8082155,Mt. Hope City Wetland,5,19,KS,hotspot
+L7048736,Melvern Lake--Outlet Swim Beach,64,170,KS,hotspot
+L2272693,Pontotoc Ridge Preserve (Pontotoc Co.),21,39,OK,hotspot
+L4764786,Stockton City Park,8,8,KS,hotspot
+L2633967,S Fork Walnut Creek--Rd. 380,8,8,KS,hotspot
+L13132355,Lake Waco--Dam Hike and Bike Trail,10,47,TX,hotspot
+L1106348,Wichita Mtns Wildlife Refuge--Hwy 49 Prairie Dog Town,87,102,OK,hotspot
+L2756809,Samuell Farm,32,281,TX,hotspot
+L2854768,Miramar Park & woods,19,21,TX,hotspot
+L3338693,Foss Lake--Mouse Creek,16,19,OK,hotspot
+L374938,Lake Ray Hubbard (Rockwall Co.),45,53,TX,hotspot
+L853682,Ray Harral Nature Park,101,407,OK,hotspot
+L10540369,Vernon G Schimel Memorial Park,3,3,TX,hotspot
+L3701416,Flint Hills Nature Trail--Kingman Terr. Access,10,15,KS,hotspot
+L46324000,KickingBird Golf Club,1,1,OK,hotspot
+L8870168,St. Mary of the Plains Park,3,4,KS,hotspot
+L7644000,"Bayshore Park, La Porte",7,17,TX,hotspot
+L1962599,Ashland City Park,19,25,KS,hotspot
+L1668756,Henderson Co.--CR3621 ponds,2,2,TX,hotspot
+L39631615,Copperas Cove City Park,2,3,TX,hotspot
+L366418,Katy Prairie--Sharp Rd area (Harris Co.),301,1461,TX,hotspot
+L3850433,Davis Mountains Preserve--Madera Canyon Rd,126,199,TX,hotspot
+L27023686,Bayou Vista area TX6,18,25,TX,hotspot
+L1090542,Rockport- A-1 Hill Pond,56,159,TX,hotspot
+L1150613,Council Grove WA--Munkers Creek,33,51,KS,hotspot
+L10121621,Sharyland Plantation Community ponds,3,3,TX,hotspot
+L1283484,Quivira NWR--Migrant's Mile & Park Smith Lake,436,802,KS,hotspot
+L1435269,Lake Eufaula--Crowder Pt. East Recreation Area,6,15,OK,hotspot
+L8808208,"Oakwood Cemetery, Waco",32,107,TX,hotspot
+L1434129,Lake Hefner--Stars and Stripes Park,289,1093,OK,hotspot
+L2325980,Via Fortuna Hiking Trail,25,28,TX,hotspot
+L894896,Rockport- Rookery (TX35 S. of Jenkins),58,74,TX,hotspot
+L3407299,Sandsage Bison Range WA--Headquarters,18,145,KS,hotspot
+L2261842,Isabel WTP,1,2,KS,hotspot
+L14117894,Scott SP--Big Spring,44,91,KS,hotspot
+L4765571,Pawnee Rock Cemetery,4,8,KS,hotspot
+L7389622,Welder Wildlife Foundation--HQ (restricted access),31,139,TX,hotspot
+L4812793,"Wright Park, Dodge City",27,32,KS,hotspot
+L449021,Lake Somerville SP (Lee Co.) (Nails Crk & Flag Pond),269,567,TX,hotspot
+L2078053,Carter Park / Treaschwig Rd area,19,51,TX,hotspot
+L7399565,Wimberley--RM12 Roadside Picnic Area,7,9,TX,hotspot
+L12604972,Jayton Park,13,40,TX,hotspot
+L8552968,Lewisville Lake--Lakeview Trail (Paloma Creek South),5,203,TX,hotspot
+L573621,Lake Willow / Waco WTP,68,127,TX,hotspot
+L29186090,Bradshaw Park,1,18,KS,hotspot
+L789171,Fall River SP--Fredonia Bay Area,32,54,KS,hotspot
+L1161404,Chickasaw NRA--Catfish Bottoms,9,9,OK,hotspot
+L6275038,Colwich Memorial Park,4,76,KS,hotspot
+L4293769,Arkansas River--12th Rd. Access,3,3,KS,hotspot
+L29929382,Floating Bridge Park,2,28,TX,hotspot
+L374130,Blucher Park (CTC 071),1296,4148,TX,hotspot
+L3232487,Topeka KSU Farm Wetland,45,260,KS,hotspot
+L2871771,"Tumbleweed Park, Midland",10,41,TX,hotspot
+L602507,John Bunker Sands Wetlands Ctr,400,1670,TX,hotspot
+L4769467,Delia WTP,3,4,KS,hotspot
+L4602727,"Riverside Park, Halstead",15,39,KS,hotspot
+L44404730,"FM1488 pond, Magnolia",1,1,TX,hotspot
+L3486019,Brandy Branch Reservoir,30,36,TX,hotspot
+L25196267,Eufaula Reservoir--Peter's Point,8,8,OK,hotspot
+L4768446,Girard Cemetery & WTP,8,15,KS,hotspot
+L7011232,Aquilla Lake--FM1947/Dairy Hill Boat Ramp,34,70,TX,hotspot
+L3103810,Sylvan Grove WTP,24,52,KS,hotspot
+L23950589,Wichita Mtns Wildlife Refuge--Kite Trail,30,31,OK,hotspot
+L30401446,Marais des Cygnes WA--Queens Rd.,9,15,KS,hotspot
+L1498985,"Spring Creek, Mertzon",73,209,TX,hotspot
+L5867120,Stranger Creek Wetlands,19,48,KS,hotspot
+L4579352,Lake Conroe--Scotts Ridge Recreation Area,24,36,TX,hotspot
+L22405651,Herbert/Russell Rd at Sprindletop Bayou Boat Ramp,1,1,TX,hotspot
+L38175722,"Haber rd., Holland",1,2,TX,hotspot
+L5692574,South Stranger Creek Mitigation (Woodend Rd. & 198th St.),23,62,KS,hotspot
+L1224790,Bexar Co.--Gross Lane (Medina R. crossing),47,93,TX,hotspot
+L7266345,Wharton Co.--FM1160 turf farm S. of CR372,11,13,TX,hotspot
+L5095348,Echo Lake Park,6,78,TX,hotspot
+L801970,Lake Murvaul,40,96,TX,hotspot
+L2441864,Chikaskia River--130 Rd.,16,25,KS,hotspot
+L1434100,Wister Lake--Spillway Access,11,11,OK,hotspot
+L2857830,"Klotz Sandpit, Syracuse (restricted access)",14,21,KS,hotspot
+L4584257,Uvalde Co.-RR187 Frio River crossing,6,9,TX,hotspot
+L1039211,Study Butte,4,8,TX,hotspot
+L9150380,"Canterbury Trails Neighborhood Park, Austin",7,25,TX,hotspot
+L4759272,Tuttle Creek WA--Irving Marsh,17,18,KS,hotspot
+L477531,Couch Park,143,578,OK,hotspot
+L9573306,Little Thicket Nature Sanctuary,16,47,TX,hotspot
+L21352344,"Johnson Park, Borger",4,6,TX,hotspot
+L6441605,Westlawn & Highland Park Cemetery,2,4,KS,hotspot
+L13084467,Big Bend NP--La Clocha,6,9,TX,hotspot
+L1285673,Kansas Wetlands Educational Center,177,212,KS,hotspot
+L1435670,Oklahoma City Riverwalk,36,104,OK,hotspot
+L2157748,Pathfinder Parkway--High School to Caney River Footbridge,38,113,OK,hotspot
+L3524500,Wakita Sewage Ponds,7,8,OK,hotspot
+L1896322,Jocelyn Nungaray NWR-- Shoveler Pond Loop,2224,4049,TX,hotspot
+L471885,Lake Carl Etling,155,283,OK,hotspot
+L569108,Fort Boggy SP (PPW-W 025),148,229,TX,hotspot
+L678893,Lively Pond,6,10,TX,hotspot
+L385337,Bay Area Pk (UTC 082),290,1129,TX,hotspot
+L1293803,Stafford Purple Martin Roost (Fountains area),47,71,TX,hotspot
+L7525482,David Braun Park at Lake Nassau,20,35,TX,hotspot
+L12942107,"Trinity Fork Park, Carrollton",33,55,TX,hotspot
+L3952433,Karnes Co.--CR256 / CR233 area,52,85,TX,hotspot
+L6572264,160th Ave. Pond,7,11,KS,hotspot
+L4763245,"Chautauqua Park, Beloit",21,25,KS,hotspot
+L1655419,Bastrop Co.--Sayers Rd. (CR157),148,469,TX,hotspot
+L4563387,Terlingua Ranch,78,129,TX,hotspot
+L271234,Hunter Park,6,7,OK,hotspot
+L4813447,Tri-State Marker (KS),26,28,KS,hotspot
+L5603816,Jamestown WA--South Buffalo Marsh,4,6,KS,hotspot
+L4764307,Tescott WTP,1,1,KS,hotspot
+L465983,Canyon Lake--Potters Creek Pk (HOTE 074),46,100,TX,hotspot
+L876157,Fort Bend Co.<U+2014>Barak Rd. area,2,2,TX,hotspot
+L8608567,Tuttle Creek Res.--ORV Area,1,1,KS,hotspot
+L4764823,Seneca WTP,14,21,KS,hotspot
+L1328190,Wilson Lake--Minooka Park RA,98,322,KS,hotspot
+L1437685,Tessaquite Creek--Canyonlands,29,34,OK,hotspot
+L23289180,Fox Hollow Trail,3,24,TX,hotspot
+L10501121,Bachmann Park,9,19,TX,hotspot
+L282367,Katy Prairie Conserv.--Nelson Farms E. (Harris Co.)(limited access),84,146,TX,hotspot
+L881612,Yoakum County Park,47,142,TX,hotspot
+L5290272,Camp Branch Glade,11,22,KS,hotspot
+L4526180,Walker Co.--FS257/Joe Novak rd.,6,7,TX,hotspot
+L20853615,Garza Co<U+2014>FM 1313 Playa b/w CR115 & CR125,4,4,TX,hotspot
+L3066937,Brazos Co.--Long Trussel rd.,71,187,TX,hotspot
+L3737506,Rd. V Playa Lake,3,3,KS,hotspot
+L36781403,Uvalde Co.<U+2014>Nueces River at CR414,3,4,TX,hotspot
+L2203591,N2240 Rd. (Kiowa Co.),1,1,OK,hotspot
+L2565778,"Southpark Meadows Ctr., Austin",61,334,TX,hotspot
+L355335,Government Canyon SNA (HOTE 085),524,1197,TX,hotspot
+L12393795,Medina Co.--Potato Flat Road,2,2,TX,hotspot

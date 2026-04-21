@@ -1,0 +1,209 @@
+﻿unitid,inst_name,checklist_count,ecology.wildlife.faculty,active.research.labs,bio.eco.major.offered,student.birding.nature.club,state_abbr,enrollment_Total,offering_highest_degree,land_grant,longitude,latitude,research2025name,degree_ordinal,land_grant_binary,research_labs,bio_major,birding_club,carnegie_ordinal,faculty_count,campus_area_km2,impervious_5km,impervious_10km,pct_vegetation_campus
+154688,Baker University,276,3,y,y,n,KS,5780,Doctor's degree research/scholarship,No,-95.187346,38.778712,No research designation,4,0,1,1,0,1,3,0.273205708,3.315126291,2.221692949,0
+154697,Barton County Community College,4,2,n,y,n,KS,20376,Associate's degree,No,-98.731648,38.403529,No research designation,1,0,0,1,0,1,2,0.624464103,5.423515655,4.726598663,18.11594203
+154712,Benedictine College,298,4,y,y,y,KS,4850,Master's degree,No,-95.113858,39.573079,No research designation,3,0,1,1,1,1,4,0.398224851,8.345077447,3.366066106,0
+154721,Bethany College,2,0,n,n,n,KS,1526,Bachelor's degree,No,-97.67367,38.580598,No research designation,2,0,0,0,0,1,0,0.242146423,3.466589465,1.610167208,0.735294118
+154749,Bethel College-North Newton,144,2,n,y,n,KS,1014,Bachelor's degree,No,-97.343256,38.075169,No research designation,2,0,0,1,0,1,2,0.230974964,12.23053288,5.991685535,8.88030888
+154907,Cloud County Community College,3,0,n,n,n,KS,4516,Associate's degree,No,-97.664147,39.554199,No research designation,1,0,0,0,0,1,0,0.095791155,6.357271424,2.365948519,0
+154925,Coffeyville Community College,1,0,n,y,n,KS,3718,Associate's degree,No,-95.621374,37.033814,No research designation,1,0,0,1,0,1,0,0.085528167,12.79483622,4.732151558,0
+154934,Colby Community College,18,0,n,y,n,KS,4468,Associate's degree,No,-101.052744,39.377601,No research designation,1,0,0,1,0,1,0,0.188423028,6.510289717,2.25809253,2.857142857
+154952,Cowley County Community College,140,0,n,y,n,KS,7148,Associate's degree,No,-97.043075,37.061668,No research designation,1,0,0,1,0,1,0,0.11047712,10.66892519,3.743532716,0
+154998,Dodge City Community College,25,0,n,n,n,KS,4682,Associate's degree,No,-100.037481,37.776891,No research designation,1,0,0,0,0,1,0,0.530903809,14.26018572,5.536620877,27.53378378
+155025,Emporia State University,47,8,y,y,y,KS,14224,Doctor's degree research/scholarship,No,-96.179021,38.414784,No research designation,4,0,1,1,1,1,8,0.476630844,17.99413039,6.059159879,0
+155061,Fort Hays State University,848,5,y,y,y,KS,35466,Doctor's degree professional practice,No,-99.342503,38.872156,No research designation,4,0,1,1,1,1,5,0.813304396,16.54437693,5.806044243,14.15929204
+155070,Barclay College,1,0,n,n,n,KS,524,Master's degree,No,-99.105351,37.62012,No research designation,3,0,0,0,0,1,0,0.095836018,1.726331598,0.984600481,0
+155098,Fort Scott Community College,3,2,n,y,n,KS,4406,Associate's degree,No,-94.715334,37.816206,No research designation,1,0,0,1,0,1,2,0.434957397,8.785685625,3.243421562,2.087682672
+155104,Garden City Community College,19,0,n,y,n,KS,5498,Associate's degree,No,-100.84916,37.970514,No research designation,1,0,0,1,0,1,0,0.254446326,20.45028375,6.488277578,0
+155177,Hesston College,31,1,n,y,n,KS,736,Bachelor's degree,No,-97.433883,38.134558,No research designation,2,0,0,1,0,1,1,0.164124044,5.309539915,2.702208759,0
+155195,Hutchinson Community College,55,1,n,y,y,KS,15088,Associate's degree,No,-97.92135,38.068035,No research designation,1,0,0,1,1,1,1,0.15011523,32.05524666,11.06588119,0
+155201,Independence Community College,2,1,n,y,n,KS,2422,Associate's degree,No,-95.720518,37.195614,No research designation,1,0,0,1,0,1,1,0.267782317,8.009308724,3.538404657,0
+155210,Johnson County Community College,32,5,n,y,y,KS,49484,Associate's degree,No,-94.727798,38.924125,No research designation,1,0,0,1,1,1,5,0.935348691,46.5716202,39.70095352,0.095510984
+155292,Kansas City Kansas Community College,3,2,n,y,n,KS,13448,Associate's degree,No,-94.748061,39.121911,No research designation,1,0,0,1,0,1,2,0.496308217,22.43316593,20.82286651,2.359346642
+155308,Kansas Christian College,1,0,n,n,n,KS,388,Master's degree,No,-94.666878,38.994848,No research designation,3,0,0,0,0,1,0,0.05744938,37.90399606,38.49536123,0
+155317,University of Kansas,1178,37,y,y,y,KS,58602,Doctor's degree research/scholarship and professional practice,No,-95.247567,38.958549,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,37,3.512759166,33.38897806,12.34349277,8.525937339
+155399,Kansas State University,1243,16,y,y,y,KS,45138,Doctor's degree research/scholarship and professional practice,Yes,-96.581077,39.188648,Research 1: Very High Spending and Doctorate Production,4,1,1,1,1,4,16,7.619591637,23.65366184,8.847774934,8.744394619
+155414,Kansas Wesleyan University,3,3,n,y,n,KS,1766,Master's degree,No,-97.607973,38.813795,No research designation,3,0,0,1,0,1,3,0.148963155,32.29769356,10.34553355,0
+155511,McPherson College,3,3,n,y,n,KS,1726,Master's degree,No,-97.642996,38.371422,No research designation,3,0,0,1,0,1,3,0.170356468,15.35910253,5.174554042,0
+155520,MidAmerica Nazarene University,19,1,n,y,n,KS,3712,Master's degree,No,-94.781526,38.875244,No research designation,3,0,0,1,0,1,1,0.473787684,43.37115801,30.68642754,2.075471698
+155618,Northwest Kansas Technical College,2,0,n,n,n,KS,1520,Associate's degree,No,-101.70022,39.346424,No research designation,1,0,0,0,0,1,0,0.209239441,6.027443743,2.077763511,9.243697479
+155627,Ottawa University-Ottawa,5,3,n,y,n,KS,1912,Doctor's degree research/scholarship,No,-95.264187,38.603173,No research designation,4,0,0,1,0,1,3,0.246932766,12.42846988,4.618496513,7.063197026
+155681,Pittsburg State University,778,4,y,y,y,KS,14994,Doctor's degree professional practice,No,-94.702473,37.392071,Research Colleges and Universities,4,0,1,1,1,2,4,0.885560426,13.53344416,5.786595625,0
+155715,Pratt Community College,2,2,n,y,n,KS,3322,Associate's degree,No,-98.714538,37.654451,No research designation,1,0,0,1,0,1,2,0.293719479,7.219105053,2.833507685,35.15151515
+155812,University of Saint Mary,72,3,y,y,n,KS,3182,Doctor's degree research/scholarship and professional practice,No,-94.906743,39.279396,No research designation,4,0,1,1,0,1,3,0.571945981,14.41171885,6.785652458,5.984251969
+155830,Salina Area Technical College,1,0,n,n,n,KS,2540,Associate's degree,No,-97.636892,38.793582,No research designation,1,0,0,0,0,1,0,0.531767528,24.84047968,10.33880088,0
+155900,Southwestern College,12,5,n,y,n,KS,3580,Doctor's degree research/scholarship,No,-96.975405,37.248608,No research designation,4,0,0,1,0,1,5,0.304603257,9.17183147,3.296935635,21.08262108
+155937,Sterling College,2,3,n,y,n,KS,1510,Master's degree,No,-98.208644,38.219937,No research designation,3,0,0,1,0,1,3,0.214437581,2.900339348,1.596097404,0
+155973,Tabor College,8,2,n,y,y,KS,1594,Master's degree,No,-97.199773,38.34858,No research designation,3,0,0,1,1,1,2,0.382160353,3.72095796,1.73060553,9.367681499
+156125,Wichita State University,43,5,y,y,n,KS,36760,Doctor's degree research/scholarship and professional practice,No,-97.292361,37.718882,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,5,1.247130671,46.71536989,39.119693,0
+206862,Southern Nazarene University,3,4,y,n,n,OK,5638,Doctor's degree research/scholarship,No,-97.629504,35.513295,No research designation,4,0,1,0,0,1,4,0.171989611,41.28803824,39.42859722,0
+206914,Cameron University,5,4,n,y,n,OK,8506,Master's degree,No,-98.434163,34.606487,No research designation,3,0,0,1,0,1,4,1.674225486,34.92655523,15.90798589,46.57312466
+206941,University of Central Oklahoma,82,9,y,y,n,OK,30938,Master's degree,No,-97.471508,35.6552,Research Colleges and Universities,3,0,1,1,0,2,9,0.811969489,37.29860259,23.31600444,0
+206996,Connors State College,6,0,n,n,n,OK,4634,Associate's degree,No,-95.319541,35.492873,No research designation,1,0,0,0,0,1,0,0.415043706,2.572113125,1.2620018,0
+207041,East Central University,3,3,n,y,n,OK,8284,Master's degree,No,-96.663849,34.771934,No research designation,3,0,0,1,0,1,3,0.49325589,18.7282347,6.561801907,0
+207050,Eastern Oklahoma State College,4,2,n,y,n,OK,3336,Associate's degree,No,-95.328995,34.914079,No research designation,1,0,0,1,0,1,2,0.362505503,4.010225371,1.821933827,8.866995074
+207236,Murray State College,2,0,n,n,n,OK,5576,Associate's degree,No,-96.677906,34.222949,No research designation,1,0,0,0,0,1,0,0.266805364,3.011383959,1.379505347,10.3202847
+207263,Northeastern State University,51,5,y,y,n,OK,16776,Doctor's degree professional practice,No,-94.967229,35.919939,No research designation,4,0,1,1,0,1,5,0.681971513,10.72136372,4.028406176,0
+207281,Northern Oklahoma College,1,1,n,y,n,OK,8686,Associate's degree,No,-97.295887,36.678649,No research designation,1,0,0,1,0,1,1,0.303410305,4.184101618,2.008099649,11.47058824
+207290,Northeastern Oklahoma A&M College,1,0,n,y,n,OK,4456,Associate's degree,No,-94.867248,36.877255,No research designation,1,0,0,1,0,1,0,0.348512234,11.57742394,4.498138472,3.299492386
+207306,Northwestern Oklahoma State University,24,2,n,y,y,OK,4336,Doctor's degree professional practice,No,-98.667673,36.796658,No research designation,4,0,0,1,1,1,2,0.362017039,6.559364002,2.402439654,8.527131783
+207324,Oklahoma Christian University,8,1,n,y,n,OK,5616,Master's degree,No,-97.469526,35.611412,No research designation,3,0,0,1,0,1,1,0.863434105,33.14184169,26.66924239,1.789473684
+207351,Oklahoma Panhandle State University,14,0,n,n,n,OK,3350,Bachelor's degree,No,-101.638488,36.594518,No research designation,2,0,0,0,0,1,0,9.246071958,1.561773406,0.909564863,63.35246619
+207388,Oklahoma State University-Main Campus,2535,21,y,y,y,OK,54446,Doctor's degree research/scholarship and professional practice,Yes,-97.069743,36.123085,Research 1: Very High Spending and Doctorate Production,4,1,1,1,1,4,21,7.946710225,22.26710154,8.014121484,29.31540895
+207403,Oklahoma Baptist University,9,1,n,y,n,OK,3126,Master's degree,No,-96.932459,35.360492,No research designation,3,0,0,1,0,1,1,0.792083037,20.41952903,7.587964197,27.67857143
+207449,Oklahoma City Community College,133,4,n,y,n,OK,32630,Associate's degree,No,-97.570109,35.387699,No research designation,1,0,0,1,0,1,4,0.548044251,41.34795369,36.89508048,0
+207458,Oklahoma City University,8,2,y,y,n,OK,5824,Doctor's degree research/scholarship and professional practice,No,-97.541242,35.495271,No research designation,4,0,1,1,0,1,2,0.403882177,57.74867303,45.42855096,0
+207500,University of Oklahoma-Norman Campus,678,45,y,y,y,OK,63208,Doctor's degree research/scholarship and professional practice,No,-97.444211,35.209407,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,45,3.537837449,31.52041776,15.48309661,2.335025381
+207582,Oral Roberts University,15,1,y,y,n,OK,11216,Doctor's degree research/scholarship and professional practice,No,-95.952547,36.049129,No research designation,4,0,1,1,0,1,1,0.908591291,37.53777284,36.07080666,0
+207661,Rogers State University,4,2,n,y,n,OK,7708,Master's degree,No,-95.635718,36.321437,No research designation,3,0,0,1,0,1,2,0.352842511,14.84554542,6.206983623,5.34351145
+207722,University of Science and Arts of Oklahoma,69,3,n,y,n,OK,1894,Bachelor's degree,No,-97.95641,35.031392,No research designation,2,0,0,1,0,1,3,0.210154024,14.4327181,5.462562768,0
+207740,Seminole State College,13,1,n,y,n,OK,3902,Associate's degree,No,-96.704908,35.249515,No research designation,1,0,0,1,0,1,1,0.222823188,7.396831402,3.171795107,6.614785992
+207847,Southeastern Oklahoma State University,7,4,n,y,n,OK,14502,Master's degree,No,-96.376864,34.006808,No research designation,3,0,0,1,0,1,4,0.537822162,14.52567072,6.276969066,2.380952381
+207856,Southwestern Christian University,3,0,n,n,n,OK,984,Master's degree,No,-97.63934,35.513314,No research designation,3,0,0,0,0,1,0,0.171989611,41.28803824,39.42859722,0
+207865,Southwestern Oklahoma State University,2,5,y,y,n,OK,11294,Doctor's degree professional practice,No,-98.707768,35.535281,No research designation,4,0,1,1,0,1,5,0.374569866,9.932862515,3.363133231,0
+207971,University of Tulsa,211,5,y,y,n,OK,8174,Doctor's degree research/scholarship and professional practice,No,-95.945941,36.152324,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,5,0.804224261,53.15684656,41.21756763,0
+222178,Abilene Christian University,80,5,y,y,n,TX,11520,Doctor's degree research/scholarship and professional practice,No,-99.709797,32.468943,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,5,0.678657112,27.93589141,17.47542689,0
+222576,Amarillo College,1,0,n,y,n,TX,23576,Associate's degree,No,-101.846988,35.187839,No research designation,1,0,0,1,0,1,0,0.156252447,45.72473288,25.32716251,0
+222822,Angelina College,5,0,n,n,n,TX,11594,Associate's degree,No,-94.731625,31.287444,No research designation,1,0,0,0,0,1,0,0.297815943,12.50381749,9.184255101,6.886227545
+222831,Angelo State University,16,8,y,y,n,TX,24876,Doctor's degree research/scholarship and professional practice,No,-100.465051,31.440914,No research designation,4,0,1,1,0,1,8,1.188854618,39.74612528,16.92676999,1.590909091
+222983,Austin College,47,3,y,y,n,TX,2484,Master's degree,No,-96.596331,33.646345,No research designation,3,0,1,1,0,1,3,0.249136315,24.12079698,11.21731915,0
+223232,Baylor University,487,6,y,y,y,TX,46436,Doctor's degree research/scholarship and professional practice,No,-97.121041,31.546872,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,6,2.488680712,34.58608,22.52335506,0.507062658
+223506,Brazosport College,6,6,n,y,n,TX,11198,Bachelor's degree,No,-95.40934,29.048604,No research designation,2,0,0,1,0,1,6,0.583388184,20.45040986,11.6627843,8.809891808
+223816,Central Texas College,12,0,n,y,n,TX,33736,Associate's degree,No,-97.810827,31.120516,No research designation,1,0,0,1,0,1,0,1.934234061,34.52210999,23.23866082,49.22644163
+224004,Concordia University Texas,176,4,n,y,n,TX,5314,Doctor's degree research/scholarship,No,-97.835703,30.420232,No research designation,4,0,0,1,0,1,4,0.29229891,15.7596877,22.85624738,14.37308869
+224110,North Central Texas College,2,0,n,n,n,TX,22666,Associate's degree,No,-97.1658,33.6188,No research designation,1,0,0,0,0,1,0,0.678910166,14.13462883,5.852229639,32.66666667
+224147,Texas A & M University-Corpus Christi,1080,8,y,y,n,TX,26736,Doctor's degree research/scholarship and professional practice,No,-97.32395,27.713723,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,8,0.786649306,20.42896617,20.51652326,0.344036697
+224226,Dallas Baptist University,12,1,n,y,n,TX,10088,Doctor's degree research/scholarship,No,-96.947006,32.710017,No research designation,4,0,0,1,0,1,1,0.787370692,30.75531378,40.29615162,8.323831243
+224323,University of Dallas,117,2,y,y,n,TX,5672,Doctor's degree research/scholarship,No,-96.919512,32.846221,No research designation,4,0,1,1,0,1,2,0.954612588,53.2272524,52.19918601,32.03050524
+224350,Del Mar College,6,7,n,y,n,TX,27798,Bachelor's degree,No,-97.40762,27.763619,No research designation,2,0,0,1,0,1,7,0.262456493,42.4820671,27.25751987,0
+224527,East Texas Baptist University,3,5,y,y,n,TX,3622,Master's degree,No,-94.374488,32.557847,No research designation,3,0,1,1,0,1,5,0.583005216,13.34615385,6.115349562,6.912442396
+224545,Texas A&M University-Texarkana,10,2,n,y,n,TX,5196,Doctor's degree research/scholarship,No,-94.103617,33.490482,No research designation,4,0,0,1,0,1,2,0.360207883,13.95472628,12.66217572,0.746268657
+224554,Texas A & M University-Commerce,1,1,y,y,n,TX,28248,Doctor's degree research/scholarship,No,-95.904579,33.242112,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,1,1.555768258,6.8469176,2.568964974,13.72212693
+224961,Galveston College,1,2,n,y,n,TX,5424,Bachelor's degree,No,-94.807686,29.284735,No research designation,2,0,0,1,0,1,2,0.041293933,25.46465712,10.1375549,0
+225070,Grayson College,169,0,n,n,n,TX,9082,Bachelor's degree,No,-96.633891,33.70574,No research designation,2,0,0,0,0,1,0,0.326555209,12.06552021,12.31997329,18.45730028
+225399,Houston Christian University,2,0,n,y,n,TX,10522,Doctor's degree research/scholarship,No,-95.515954,29.693819,No research designation,4,0,0,1,0,1,0,0.391113721,60.46654286,54.15196992,0
+225414,University of Houston-Clear Lake,499,2,n,y,n,TX,22750,Doctor's degree research/scholarship,No,-95.098129,29.582523,No research designation,4,0,0,1,0,1,2,2.165115089,33.278893,36.60198279,38.54469854
+225432,University of Houston-Downtown,2,5,n,y,n,TX,37046,Master's degree,No,-95.359338,29.7661,No research designation,3,0,0,1,0,1,5,0.022339229,64.3236036,57.09966639,0
+225502,University of Houston-Victoria,3,2,n,y,n,TX,11218,Master's degree,No,-96.976334,28.816248,No research designation,3,0,0,1,0,1,2,0.241963509,30.7326752,12.07484315,0
+225511,University of Houston,395,13,y,y,n,TX,105032,Doctor's degree research/scholarship and professional practice,No,-95.343537,29.720393,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,13,1.60735033,61.08554691,55.98619662,0
+225548,Howard Payne University,3,3,n,y,n,TX,1942,Master's degree,No,-98.985204,31.716467,No research designation,3,0,0,1,0,1,3,0.189898736,17.71123951,7.027712494,0
+225575,Huston-Tillotson University,1,4,n,y,n,TX,2344,Master's degree,No,-97.721691,30.264667,No research designation,3,0,0,1,0,1,4,0.081672452,48.45357515,39.62820505,0
+225627,University of the Incarnate Word,374,4,y,y,n,TX,18248,Doctor's degree research/scholarship and professional practice,No,-98.46583,29.46708,No research designation,4,0,1,1,0,1,4,0.659273927,48.33644774,50.30505438,27.86666667
+226019,Kilgore College,3,0,n,y,n,TX,13598,Associate's degree,No,-94.871468,32.377821,No research designation,1,0,0,1,0,1,0,0.270974635,14.37352533,6.402442415,0
+226091,Lamar University,35,6,n,y,n,TX,44458,Doctor's degree research/scholarship and professional practice,No,-94.072244,30.042738,Research 2: High Spending and Doctorate Production,4,0,0,1,0,3,6,1.004559761,28.86502969,18.61153275,0
+226134,Laredo College,594,0,n,y,n,TX,25930,Bachelor's degree,No,-99.520772,27.506477,No research designation,2,0,0,1,0,1,0,0.550743131,57.38197023,43.72267626,1.149425287
+226152,Texas A & M International University,148,4,n,y,n,TX,20160,Doctor's degree research/scholarship,No,-99.436043,27.571172,Research Colleges and Universities,4,0,0,1,0,2,4,1.224878026,19.31445178,20.60005605,41.61764706
+226204,Lee College,268,0,n,y,n,TX,18288,Associate's degree,No,-94.978184,29.732505,No research designation,1,0,0,1,0,1,0,0.255463892,34.43015018,26.48102046,0
+226231,LeTourneau University,118,0,n,n,n,TX,7992,Master's degree,No,-94.726394,32.46632,No research designation,3,0,0,0,0,1,0,0.660469106,23.69669349,15.80008828,0
+226408,College of the Mainland,115,0,n,y,n,TX,11152,Bachelor's degree,No,-94.999602,29.39581,No research designation,2,0,0,1,0,1,0,0.540553971,23.68616729,20.27789911,0
+226471,University of Mary Hardin-Baylor,52,1,n,y,n,TX,9548,Doctor's degree research/scholarship and professional practice,No,-97.463471,31.066793,No research designation,4,0,0,1,0,1,1,0.474828313,19.20932552,14.73709372,0
+226578,McLennan Community College,37,1,n,y,n,TX,22598,Associate's degree,No,-97.171228,31.58947,No research designation,1,0,0,1,0,1,1,0.650155533,18.11495518,21.24138208,9.583333333
+226587,McMurry University,10,3,n,y,n,TX,2666,Master's degree,No,-99.748682,32.429776,No research designation,3,0,0,1,0,1,3,0.256116136,45.4079934,21.47198521,0
+226806,Midland College,448,6,n,y,n,TX,15482,Bachelor's degree,No,-102.106153,32.029646,No research designation,2,0,0,1,0,1,6,0.870854939,33.42292567,19.23554497,22.64736298
+226833,Midwestern State University,151,4,n,y,n,TX,13414,Doctor's degree research/scholarship,No,-98.519386,33.874809,No research designation,4,0,0,1,0,1,4,0.782596965,38.46754483,17.54525079,0
+227216,University of North Texas,159,10,y,y,n,TX,98772,Doctor's degree research/scholarship and professional practice,No,-97.148422,33.211178,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,10,1.978965794,37.66272698,21.54242894,0
+227331,Our Lady of the Lake University,1,2,n,y,n,TX,6060,Doctor's degree research/scholarship and professional practice,No,-98.54365,29.426194,No research designation,4,0,0,1,0,1,2,0.300235816,52.89371826,49.06139798,0
+227368,The University of Texas Rio Grande Valley - Edinburg,368,16,y,y,n,TX,88996,Doctor's degree research/scholarship and professional practice,No,-98.173567,26.306759,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,16,0.865132665,37.25096587,26.6130922,0
+227368,The University of Texas Rio Grande Valley - Brownsville Campus,4727,16,y,y,y,TX,88996,Doctor's degree research/scholarship and professional practice,No,-97.486991,25.89462,Research 2: High Spending and Doctorate Production,4,0,1,1,1,3,16,0.865132665,40.47985355,32.00480234,0.727650728
+227386,Panola College,1,0,n,y,n,TX,7268,Associate's degree,No,-94.356355,32.156214,No research designation,1,0,0,1,0,1,0,0.146551178,10.63574139,4.580817489,0
+227429,Paul Quinn College,1,0,n,n,n,TX,2294,Master's degree,No,-96.755778,32.678837,No research designation,3,0,0,0,0,1,0,0.339129178,29.33159446,33.53911237,14.36170213
+227526,Prairie View A & M University,3,0,n,y,n,TX,20492,Doctor's degree research/scholarship,Yes,-95.989475,30.092425,Research 2: High Spending and Doctorate Production,4,1,0,1,0,3,0,2.692433418,5.887993489,4.913174073,3.217158177
+227757,Rice University,3443,11,y,y,y,TX,17564,Doctor's degree research/scholarship,No,-95.402035,29.717897,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,11,1.181495623,59.93089692,55.28880972,0.987091875
+227845,Saint Edward's University,248,2,y,y,n,TX,7816,Doctor's degree research/scholarship,No,-97.754998,30.229618,Research Colleges and Universities,4,0,1,1,0,2,2,0.5716407,49.76733655,39.14999026,0
+227863,University of St Thomas,14,0,n,y,n,TX,8658,Doctor's degree research/scholarship and professional practice,No,-95.393102,29.736438,No research designation,4,0,0,1,0,1,0,0.158573229,61.29015099,57.17430533,0
+227881,Sam Houston State University,72,4,n,y,n,TX,48086,Doctor's degree research/scholarship and professional practice,No,-95.546205,30.714738,Research 2: High Spending and Doctorate Production,4,0,0,1,0,3,4,1.168805874,16.80991034,6.54146533,0
+228042,Schreiner University,79,3,n,y,n,TX,2502,Master's degree,No,-99.130586,30.031458,No research designation,3,0,0,1,0,1,3,0.723491224,17.39855779,7.411446406,7.329192547
+228149,St. Mary's University,637,2,n,y,n,TX,7292,Doctor's degree research/scholarship and professional practice,No,-98.562778,29.453244,No research designation,4,0,0,1,0,1,2,0.504618809,48.64656991,49.72444411,0
+228158,South Plains College,19,3,n,y,n,TX,24040,Associate's degree,No,-102.365075,33.575904,No research designation,1,0,0,1,0,1,3,0.59675128,9.499243275,3.041521926,1.057401813
+228246,Southern Methodist University,31,0,n,y,n,TX,27220,Doctor's degree research/scholarship and professional practice,No,-96.783365,32.843612,Research 1: Very High Spending and Doctorate Production,4,0,0,1,0,4,0,0.894303358,52.64023111,51.96302995,0
+228316,Southwest Texas Junior College,5,0,n,y,n,TX,15022,Associate's degree,No,-99.741237,29.219671,No research designation,1,0,0,1,0,1,0,0.218145487,7.631338202,3.775971476,8.67768595
+228343,Southwestern University,22,4,y,y,n,TX,3086,Bachelor's degree,No,-97.665738,30.634341,No research designation,2,0,1,1,0,1,4,0.662462723,28.33856842,17.17617892,13.09686221
+228431,Stephen F Austin State University,445,9,y,y,n,TX,26940,Doctor's degree research/scholarship,No,-94.64908,31.621056,Research Colleges and Universities,4,0,1,1,0,2,9,1.689769463,16.51376326,6.277949109,17.65333333
+228459,Texas State University,3543,24,y,y,y,TX,83800,Doctor's degree research/scholarship and professional practice,No,-97.943029,29.888885,Research 2: High Spending and Doctorate Production,4,0,1,1,1,3,24,3.066608175,16.6977736,10.56302003,22.3722842
+228468,Southwestern Adventist University,6,1,n,y,n,TX,2164,Master's degree,No,-97.32702,32.397617,No research designation,3,0,0,1,0,1,1,0.224170114,8.266387711,11.1063781,0
+228501,Sul Ross State University,96,9,y,y,y,TX,5120,Master's degree,No,-103.651469,30.363139,Research Colleges and Universities,3,0,1,1,1,2,9,0.344898348,4.958947139,1.448092725,1.047120419
+228529,Tarleton State University,32,12,y,y,n,TX,32098,Doctor's degree research/scholarship,No,-98.219039,32.217805,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,12,0.823210972,15.08928203,5.745621251,0
+228608,Temple College,6,2,n,y,n,TX,11822,Associate's degree,No,-97.350471,31.070715,No research designation,1,0,0,1,0,1,2,0.493873276,31.25126965,15.91471122,1.462522852
+228699,Texarkana College,21,0,n,y,n,TX,9036,Associate's degree,No,-94.078,33.441868,No research designation,1,0,0,1,0,1,0,0.288427101,33.93883284,16.51736443,0
+228705,Texas A & M University-Kingsville,623,19,y,y,y,TX,14598,Doctor's degree research/scholarship,No,-97.882387,27.525168,Research 2: High Spending and Doctorate Production,4,0,1,1,1,3,19,1.141377168,12.13956341,5.718789855,8.84244373
+228723,Texas A & M University-College Station,4789,52,y,y,y,TX,154192,Doctor's degree research/scholarship and professional practice,Yes,-96.336475,30.618726,Research 1: Very High Spending and Doctorate Production,4,1,1,1,1,4,52,22.42801313,31.15916673,22.02746546,20.31381677
+228769,The University of Texas at Arlington,78,8,y,y,y,TX,113942,Doctor's degree research/scholarship and professional practice,No,-97.11296,32.729718,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,8,1.73587927,53.97223432,46.46556359,0
+228778,The University of Texas at Austin,2602,27,y,y,y,TX,110286,Doctor's degree research/scholarship and professional practice,No,-97.738273,30.282825,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,27,3.90115208,47.55084843,39.65065176,8.891454965
+228787,The University of Texas at Dallas,115,1,y,y,n,TX,65654,Doctor's degree research/scholarship and professional practice,No,-96.749702,32.984673,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,1,2.153916839,58.03805015,57.61222285,0
+228796,The University of Texas at El Paso,820,14,y,y,n,TX,57164,Doctor's degree research/scholarship and professional practice,No,-106.504098,31.77015,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,14,1.21378688,40.79606946,38.42383267,0.148809524
+228802,The University of Texas at Tyler,90,6,y,y,y,TX,23406,Doctor's degree research/scholarship and professional practice,No,-95.254337,32.315772,Research 2: High Spending and Doctorate Production,4,0,1,1,1,3,6,0.857001198,23.69331469,17.04504146,8.700209644
+228875,Texas Christian University,223,8,y,y,y,TX,25026,Doctor's degree research/scholarship and professional practice,No,-97.364758,32.70961,Research 2: High Spending and Doctorate Production,4,0,1,1,1,3,8,1.988178972,55.8640011,50.58584171,0
+228981,Texas Lutheran University,60,2,n,y,n,TX,3136,Doctor's degree research/scholarship,No,-97.982669,29.573261,No research designation,4,0,0,1,0,1,2,0.646175957,22.61242505,9.725005374,0
+229018,The University of Texas Permian Basin,80,0,n,y,n,TX,13864,Master's degree,No,-102.329634,31.889509,Research Colleges and Universities,3,0,0,1,0,2,0,2.331633092,30.99105853,20.68735777,20.9895632
+229027,The University of Texas at San Antonio,205,8,y,y,n,TX,77814,Doctor's degree research/scholarship,No,-98.620657,29.583709,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,8,2.391123192,39.09491712,30.90122728,26.26224567
+229063,Texas Southern University,1,1,n,y,n,TX,16962,Doctor's degree research/scholarship and professional practice,No,-95.361113,29.721046,Research 2: High Spending and Doctorate Production,4,0,0,1,0,3,1,0.553638432,61.8873233,55.08276704,0
+229115,Texas Tech University,971,18,y,y,y,TX,87418,Doctor's degree research/scholarship and professional practice,No,-101.874783,33.583448,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,18,7.965682478,41.15724489,28.30229819,11.13497626
+229160,Texas Wesleyan University,1,1,n,y,n,TX,6060,Doctor's degree research/scholarship and professional practice,No,-97.279613,32.732962,No research designation,4,0,0,1,0,1,1,0.193578675,47.02166686,47.01348524,0
+229179,Texas Woman's University,53,1,y,y,n,TX,40424,Doctor's degree research/scholarship and professional practice,No,-97.127842,33.226211,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,1,1.012065327,41.01102907,20.2300851,0.178890877
+229267,Trinity University,374,4,y,y,y,TX,5564,Master's degree,No,-98.48186,29.462682,Research Colleges and Universities,3,0,1,1,1,2,4,0.659273927,48.33644774,50.30505438,27.86666667
+229540,Victoria College,3,0,n,y,n,TX,8266,Associate's degree,No,-96.979226,28.816446,No research designation,1,0,0,1,0,1,0,0.241963509,30.7326752,12.07484315,0
+229780,Wayland Baptist University,69,0,n,y,n,TX,8820,Doctor's degree research/scholarship,No,-101.730042,34.187677,No research designation,4,0,0,1,0,1,0,0.332947449,16.28675586,5.529302182,0
+229814,West Texas A & M University,289,5,y,y,n,TX,21986,Doctor's degree research/scholarship,No,-101.914736,34.982789,Research Colleges and Universities,4,0,1,1,0,2,5,0.942563776,10.18177441,4.712048037,5.133079848
+229832,Western Texas College,11,1,n,y,n,TX,6148,Associate's degree,No,-100.914945,32.678458,No research designation,1,0,0,1,0,1,1,0.66601042,8.43790048,3.782781411,4.582210243
+229841,Wharton County Junior College,4,2,n,y,n,TX,14948,Associate's degree,No,-96.085815,29.3238,No research designation,1,0,0,1,0,1,2,0.254182808,7.920375593,2.99400403,0
+245953,Mid-America Christian University,1,0,n,y,n,OK,5412,Master's degree,No,-97.578297,35.347785,No research designation,3,0,0,1,0,1,0,0.155261353,23.81560877,25.38353573,2.976190476
+246354,Palo Alto College,28,0,n,y,n,TX,33020,Associate's degree,No,-98.543468,29.322955,No research designation,1,0,0,1,0,1,0,0.651732841,26.86668348,26.2924484,4.401650619
+409315,South Texas College,4,0,n,y,n,TX,80802,Bachelor's degree,No,-98.253634,26.217591,No research designation,2,0,0,1,0,1,0,0.386956726,50.07576609,38.34986372,0
+420398,Northwest Vista College,74,0,n,y,n,TX,48300,Associate's degree,No,-98.70513,29.471308,No research designation,1,0,0,1,0,1,0,0.55258712,43.35055659,36.04866375,10.6557377
+475608,Criswell College,1,0,n,n,n,TX,412,Master's degree,No,-96.77669,32.793513,No research designation,3,0,0,0,0,1,0,0.104984742,57.51695518,48.45042892,0
+483036,Texas A&M University-Central Texas,3,1,n,y,n,TX,5882,Master's degree,No,-97.775182,31.053407,No research designation,3,0,0,1,0,1,1,2.717485073,18.9461049,20.66040315,87.61589404
+488730,Northeast Lakeview College,25,0,n,y,n,TX,20544,Associate's degree,No,-98.323246,29.545802,No research designation,1,0,0,1,0,1,0,1.029334133,44.47015396,36.77073636,29.86899563
+101435,Huntingdon College,42,2,n,y,n,AL,1802,Master's degree,No,-86.284366,32.351034,No research designation,3,0,0,1,0,1,2,0.293699831,37.05592939,25.90247866,0
+101602,Lurleen B Wallace Community College,32,0,n,y,n,AL,4838,Associate's degree,No,-86.452262,31.322947,No research designation,1,0,0,1,0,1,0,0.80703241,7.212900342,3.61370704,0.769230769
+101295,George C Wallace State Community College-Hanceville,6,0,n,n,n,AL,15736,Associate's degree,No,-86.781935,34.072439,No research designation,1,0,0,0,0,1,0,1.536034023,4.557606328,4.332881439,1.45672665
+101897,Northeast Alabama Community College,1,0,n,y,n,AL,6700,Associate's degree,No,-85.911664,34.545471,No research designation,1,0,0,1,0,1,0,0.403203465,2.401004288,2.771127053,12.5
+101143,Enterprise State Community College,6,0,n,y,n,AL,5078,Associate's degree,No,-85.836956,31.297496,No research designation,1,0,0,1,0,1,0,0.200156551,12.14110148,5.609254764,0
+102377,Tuskegee University,11,0,n,y,n,AL,5808,Doctor's degree research/scholarship and professional practice,Yes,-85.708492,32.4309,Research Colleges and Universities,4,1,0,1,0,2,0,1.704841037,6.774552625,2.554595716,13.45724907
+100706,University of Alabama in Huntsville,699,4,y,y,n,AL,22284,Doctor's degree research/scholarship and professional practice,No,-86.640449,34.724557,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,4,2.537592749,38.84230139,25.2461079,0.736454498
+100751,The University of Alabama,785,18,y,y,y,AL,84654,Doctor's degree research/scholarship and professional practice,No,-87.545978,33.211875,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,18,6.068484662,34.78472756,18.97595265,2.407328504
+100724,Alabama State University,1,0,y,y,n,AL,8850,Doctor's degree research/scholarship and professional practice,No,-86.295677,32.364317,Research Colleges and Universities,4,0,1,1,0,2,0,0.948997074,38.35808301,25.39249253,0
+101189,Faulkner University,2,0,n,n,n,AL,7014,Doctor's degree research/scholarship and professional practice,No,-86.21641,32.384181,No research designation,4,0,0,0,0,1,0,0.514906445,32.71058122,24.66696568,0
+101879,University of North Alabama,2,3,y,y,n,AL,21290,Doctor's degree research/scholarship,No,-87.680407,34.80731,No research designation,4,0,1,1,0,1,3,0.627890547,18.58070507,13.51652059,0
+102049,Samford University,53,5,y,y,n,AL,12280,Doctor's degree research/scholarship and professional practice,No,-86.791799,33.464128,No research designation,4,0,1,1,0,1,5,1.034151314,31.62061059,31.86930888,0
+100760,Central Alabama Community College,4,0,n,y,n,AL,4436,Associate's degree,No,-85.945266,32.92478,No research designation,1,0,0,1,0,1,0,0.388733017,9.447309289,3.81208675,0.666666667
+102234,Spring Hill College,13,5,n,y,n,AL,2634,Master's degree,No,-88.138199,30.694751,No research designation,3,0,0,1,0,1,5,0.733739977,33.82101051,29.17298179,3.535353535
+100663,University of Alabama at Birmingham,58,4,y,y,n,AL,51926,Doctor's degree research/scholarship and professional practice,No,-86.799345,33.505697,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,4,2.116762075,47.95769852,35.43045695,0
+102067,Shelton State Community College,4,0,n,y,n,AL,14048,Associate's degree,No,-87.56148,33.120531,No research designation,1,0,0,1,0,1,0,0.462459832,9.696629213,11.04522227,0
+101709,University of Montevallo,13,1,n,y,y,AL,5788,Master's degree,No,-86.865099,33.10625,No research designation,3,0,0,1,1,1,1,1.207778283,4.111298366,3.733532814,7.585470085
+102094,University of South Alabama,410,19,y,y,n,AL,32202,Doctor's degree research/scholarship and professional practice,No,-88.178711,30.696033,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,19,4.944505527,26.5058922,22.50647032,30.05424063
+185509,Mercer County Community College,2,0,n,y,n,NJ,17238,Associate's degree,No,-74.650719,40.254398,No research designation,1,0,0,1,0,1,0,0.866951095,22.05932728,23.90443366,0.718132855
+184481,Essex County College,7,0,n,y,n,NJ,17766,Associate's degree,No,-74.178234,40.738444,No research designation,1,0,0,1,0,1,0,0.47157154,65.94198911,50.14667561,0
+183655,Atlantic Cape Community College,2,0,n,y,n,NJ,12626,Associate's degree,No,-74.680019,39.462081,No research designation,1,0,0,1,0,1,0,1.680880756,9.762536975,7.957714993,76.14761476
+187198,"UCNJ Union College of Union County, NJ",52,0,n,y,n,NJ,21948,Associate's degree,No,-74.319138,40.668595,No research designation,1,0,0,1,0,1,0,0.342525963,32.46369567,34.35737727,9.049773756
+185590,Montclair State University,54,6,y,y,n,NJ,47566,Doctor's degree research/scholarship and professional practice,No,-74.198141,40.860414,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,6,1.645114293,39.80610174,43.03427037,0
+187444,William Paterson University of New Jersey,3,0,n,n,n,NJ,23238,Doctor's degree professional practice,No,-74.200248,40.945255,Research Colleges and Universities,4,0,0,0,0,2,0,1.421341432,35.2459069,33.18052952,10.11111111
+186371,Rutgers University-Camden,1,2,y,y,n,NJ,14940,Doctor's degree research/scholarship and professional practice,No,-75.12224,39.948064,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,2,0.347168547,61.55709815,54.78235348,0
+185873,Ocean County College,112,0,n,y,n,NJ,25220,Associate's degree,No,-74.16549,40.007809,No research designation,1,0,0,1,0,1,0,1.37469187,30.89331698,29.47932979,16.61054994
+183938,Camden County College,71,0,n,y,y,NJ,31456,Associate's degree,No,-75.038381,39.784874,No research designation,1,0,0,1,1,1,0,0.631379523,27.91678131,27.47911758,0.240963855
+186399,Rutgers University-Newark,7,0,n,y,n,NJ,28336,Doctor's degree research/scholarship and professional practice,No,-74.175809,40.739122,Research 2: High Spending and Doctorate Production,4,0,0,1,0,3,0,0.47157154,65.94198911,50.14667561,0
+184773,Georgian Court University,56,2,n,y,n,NJ,5006,Doctor's degree professional practice,No,-74.228186,40.099617,No research designation,4,0,0,1,0,1,2,0.783920421,24.83292062,21.49077224,6.52173913
+184205,Rowan College of South Jersey-Cumberland Campus,13,0,n,y,n,NJ,6714,Associate's degree,No,-75.057829,39.440537,No research designation,1,0,0,1,0,1,0,0.706044415,18.19327288,14.1364349,1.713062099
+186131,Princeton University,1829,21,y,y,y,NJ,17262,Doctor's degree research/scholarship,No,-74.659365,40.348732,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,21,5.996646,17.30363509,13.75076167,12.7753304
+186201,Ramapo College of New Jersey,48,2,n,y,y,NJ,12826,Doctor's degree professional practice,No,-74.174086,41.080942,No research designation,4,0,0,1,1,1,2,2.090511083,16.09943478,13.45622492,27.3556231
+184782,Rowan University,681,11,y,y,n,NJ,44160,Doctor's degree research/scholarship and professional practice,No,-75.119119,39.709108,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,11,1.619429807,18.8842384,15.93799065,2.539981185
+183488,Eastwick College-Hackensack,29,0,n,n,n,NJ,1746,Bachelor's degree,No,-74.040491,40.885847,No research designation,2,0,0,0,0,1,0,0.765601383,46.35451252,40.5623961,0
+185572,Monmouth University,13,4,n,y,n,NJ,12068,Doctor's degree professional practice,No,-74.006447,40.280066,Research Colleges and Universities,4,0,0,1,0,2,4,0.992763941,27.40231572,19.37661831,0.46728972
+185828,New Jersey Institute of Technology,7,2,y,y,n,NJ,27298,Doctor's degree research/scholarship,No,-74.177113,40.741997,Research 1: Very High Spending and Doctorate Production,4,0,1,1,0,4,2,0.47157154,65.94198911,50.14667561,0
+209074,Linn-Benton Community College,16,0,n,y,n,OR,15398,Associate's degree,No,-123.11403,44.587663,No research designation,1,0,0,1,0,1,0,0.822229521,16.50875966,9.897186619,0
+209603,Pacific Northwest College of Art,1,0,n,n,n,OR,NA,NA,NA,-122.678182,45.526766,No research designation,NA,NA,0,0,0,1,0,0.012962469,52.85703476,45.38856136,0
+420556,Columbia Gorge Community College,1,0,n,y,n,OR,2588,Associate's degree,No,-121.190197,45.590724,No research designation,1,0,0,1,0,1,0,0.456191859,14.10471288,5.168969559,35.36585366
+423652,Oregon Coast Community College,5,0,n,y,n,OR,1406,Associate's degree,No,-124.046973,44.603136,No research designation,1,0,0,1,0,1,0,0.19258817,6.501983172,3.185314216,55.66037736
+208406,Clackamas Community College,83,0,n,y,n,OR,21696,Associate's degree,No,-122.574272,45.323185,No research designation,1,0,0,1,0,1,0,1.303295698,17.87535395,13.91564058,0.841514727
+208646,Eastern Oregon University,368,4,y,y,n,OR,9170,Master's degree,No,-118.092495,45.319795,No research designation,3,0,1,1,0,1,4,0.836470772,11.44815371,4.162680386,0
+210155,Southwestern Oregon Community College,6,2,n,y,n,OR,4282,Associate's degree,No,-124.25224,43.395327,No research designation,1,0,0,1,0,1,2,0.769859789,15.03701878,5.862549675,9.354120267
+209612,Pacific University,73,2,n,y,n,OR,8270,Doctor's degree research/scholarship and professional practice,No,-123.108777,45.521394,Research Colleges and Universities,4,0,0,1,0,2,2,0.504559968,13.32187242,6.628573967,0
+209825,University of Portland,231,6,y,y,n,OR,9422,Doctor's degree professional practice,No,-122.726691,45.572724,No research designation,4,0,1,1,0,1,6,1.236443392,37.38424148,36.87158006,0
+209940,Rogue Community College,34,0,n,y,n,OR,11586,Associate's degree,No,-123.39326,42.412159,No research designation,1,0,0,1,0,1,0,0.697047575,14.72704552,9.763995414,28.67298578
+209807,Portland State University,103,11,y,y,n,OR,55020,Doctor's degree research/scholarship,No,-122.686289,45.511601,Research 2: High Spending and Doctorate Production,4,0,1,1,0,3,11,0.869931899,44.77290028,45.12954964,4.612159329
+209551,University of Oregon,3720,19,y,y,y,OR,48318,Doctor's degree research/scholarship and professional practice,No,-123.075792,44.045146,Research 1: Very High Spending and Doctorate Production,4,0,1,1,1,4,19,2.655780256,43.97684071,26.09534851,0
+208318,Central Oregon Community College,54,0,n,y,n,OR,13298,Associate's degree,No,-121.348585,44.071401,No research designation,1,0,0,1,0,1,0,1.54679748,24.05061158,15.13955428,8.651685393
+208725,New Hope Christian College-Eugene,1,0,n,n,n,OR,112,Bachelor's degree,No,-123.15355,44.032674,No research designation,2,0,0,0,0,1,0,0.147737619,27.12891503,20.47115839,0
+209542,Oregon State University,3739,54,y,y,y,OR,79900,Doctor's degree research/scholarship and professional practice,Yes,-123.274723,44.56395,Research 1: Very High Spending and Doctorate Production,4,1,1,1,1,4,54,4.318724492,22.00675281,8.507004591,1.642036125
+210429,Western Oregon University,53,6,y,y,n,OR,9500,Master's degree,No,-123.238309,44.852235,No research designation,3,0,1,1,0,1,6,1.097054946,8.585423737,4.781303022,0
+210270,Umpqua Community College,67,0,y,y,n,OR,6588,Associate's degree,No,-123.332475,43.289317,No research designation,1,0,1,1,0,1,0,0.701207471,5.584842926,5.933130987,2.663438257
+210146,Southern Oregon University,110,4,y,y,y,OR,21474,Master's degree,No,-122.695081,42.185077,No research designation,3,0,1,1,1,1,4,1.086966782,9.742519432,3.739993637,0
+210401,Willamette University,1705,3,y,y,y,OR,3834,Doctor's degree professional practice,No,-123.030537,44.935457,No research designation,4,0,1,1,1,1,3,0.417428923,45.24071866,24.61431732,0
