@@ -3,7 +3,7 @@ CITATION HERE (CHANGE ALL R SCRIPTS TO HAVE THE SAME .r STRUCTURE)
 
 ## Data
 
-| Script | Description |
+| File Name | Description |
 |--------|-------------|
 | `campus_data_with_pca.csv` | Master dataset for modelling. Includes all variables by campus included in models including PCA scores |
 | `campus_polygons_MASTER` | Shapefile with campus boundaries (n=153) |
