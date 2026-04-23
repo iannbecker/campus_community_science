@@ -2,6 +2,7 @@
 CITATION HERE (CHANGE ALL R SCRIPTS TO HAVE THE SAME .r STRUCTURE)
 
 ## Data
+These files can be used to recreate the analyses described below. For privacy purposes we do not include here movement data which included raw location data specific to individual users. 
 
 | File Name | Description |
 |--------|-------------|
