@@ -9,7 +9,7 @@
 # This script is used to analyze movement patterns of observers
 # at hotspots and campuses. The original dataset containing movements
 # was not included due to privacy concerns, but this script can be run on 
-# the example included dataset "movement_network_SAMPLE.csv" to reproduce the analysis
+# the example included dataset "movement_network_EXAMPLE.csv" to reproduce the analysis
 
 library(tidyverse)
 library(sf)
@@ -25,7 +25,7 @@ setwd("PATH HERE")
 
 # Load in movement data
 
-network_data <- read.csv("movement_network_SAMPLE.csv")
+network_data <- read.csv("movement_network_EXAMPLE.csv")
 
 # Create checklist order within each window
 
@@ -67,7 +67,7 @@ hotspot_data <- network_with_county %>% filter(location_type == "hotspot")
 
 
 # ============================================================================
-# 1. BASE SUMMARY
+# BASE SUMMARY
 # ============================================================================
 
 # Unique locations
@@ -86,13 +86,13 @@ n_distinct(campus_data$window_id)
 n_distinct(hotspot_data$window_id)
 
 # ============================================================================
-# 2. DISTANCE XXXX
+# DISTANCE EQUATION AND LOCATION DISTANCES
 # ============================================================================
 
 # Calculate haversine distance function
 
 haversine <- function(lon1, lat1, lon2, lat2) {
-  R <- 6371  # Earth radius in km
+  R <- 6371  
   
   dLat <- (lat2 - lat1) * pi / 180
   dLon <- (lon2 - lon1) * pi / 180
@@ -103,7 +103,7 @@ haversine <- function(lon1, lat1, lon2, lat2) {
   return(R * c)
 }
 
-# Campus: consecutive distances
+# Campus consecutive distances
 
 campus_distances <- campus_data %>%
   arrange(observer_id, window_id, checklist_order) %>%
@@ -127,7 +127,7 @@ campus_dist_stats <- campus_distances %>%
     n_movements = n()
   )
 
-# Hotspot: consecutive distances
+# Hotspot consecutive distances
 
 hotspot_distances <- hotspot_data %>%
   arrange(observer_id, window_id, checklist_order) %>%
@@ -152,7 +152,7 @@ hotspot_dist_stats <- hotspot_distances %>%
   )
 
 # ============================================================================
-# 3. DISTANCE FROM ORIGIN
+# DISTANCE FROM ORIGIN
 # ============================================================================
 
 # Campus distance from origin
@@ -180,30 +180,11 @@ hotspot_from_origin <- hotspot_data %>%
   )
 
 # ============================================================================
-# 4. BREAKDOWN BY LOCATION TYPE (Hotspot, personal, etc.)
+# RETURN RATE TO ORIGIN 
 # ============================================================================
 
-# Campus
+# Campus return to origin
 
-campus_by_type <- campus_data %>%
-  count(locality_type) %>%
-  mutate(pct = n / sum(n) * 100) %>%
-  arrange(desc(n))
-
-# Hotspot
-
-hotspot_by_type <- hotspot_data %>%
-  count(locality_type) %>%
-  mutate(pct = n / sum(n) * 100) %>%
-  arrange(desc(n))
-
-# ============================================================================
-# 5. RETURN RATE TO ORIGIN
-# ============================================================================
-
-cat("=== RETURN TO ORIGIN ===\n")
-
-# Campus: how many windows involve returning to campus?
 campus_returns <- campus_data %>%
   group_by(window_id) %>%
   summarize(
@@ -216,6 +197,8 @@ campus_returns <- campus_data %>%
     windows_with_return = sum(revisited_origin),
     pct_return = sum(revisited_origin) / n() * 100
   )
+
+# Hotspot return to origin
 
 hotspot_returns <- hotspot_data %>%
   group_by(window_id) %>%
@@ -230,21 +213,13 @@ hotspot_returns <- hotspot_data %>%
     pct_return = sum(revisited_origin) / n() * 100
   )
 
-cat("Campus-based observers:\n")
-cat("  Windows with return to campus:", campus_returns$windows_with_return, 
-    "/", campus_returns$total_windows, 
-    "(", round(campus_returns$pct_return, 1), "%)\n\n")
 
-cat("Hotspot-based observers:\n")
-cat("  Windows with return to hotspot:", hotspot_returns$windows_with_return, 
-    "/", hotspot_returns$total_windows,
-    "(", round(hotspot_returns$pct_return, 1), "%)\n\n")
 
 # ============================================================================
-# 6. CHECKLISTS PER WINDOW
+# CHECKLISTS PER WINDOW 
 # ============================================================================
 
-cat("=== ACTIVITY INTENSITY ===\n")
+# Campus checklists per window
 
 campus_activity <- campus_data %>%
   group_by(window_id) %>%
@@ -255,6 +230,8 @@ campus_activity <- campus_data %>%
     max_checklists = max(checklists)
   )
 
+# Hotspot checklists per window
+
 hotspot_activity <- hotspot_data %>%
   group_by(window_id) %>%
   summarize(checklists = n(), .groups = "drop") %>%
@@ -264,21 +241,11 @@ hotspot_activity <- hotspot_data %>%
     max_checklists = max(checklists)
   )
 
-cat("Campus-based observers:\n")
-cat("  Mean checklists per window:", round(campus_activity$mean_checklists, 1), "\n")
-cat("  Median checklists per window:", round(campus_activity$median_checklists, 1), "\n")
-cat("  Max checklists in one window:", campus_activity$max_checklists, "\n\n")
-
-cat("Hotspot-based observers:\n")
-cat("  Mean checklists per window:", round(hotspot_activity$mean_checklists, 1), "\n")
-cat("  Median checklists per window:", round(hotspot_activity$median_checklists, 1), "\n")
-cat("  Max checklists in one window:", hotspot_activity$max_checklists, "\n\n")
-
 # ============================================================================
-# 7. CONCENTRATION AT ORIGIN
+# CONCENTRATION OF CHECKLISTS AT ORIGIN
 # ============================================================================
 
-cat("=== CONCENTRATION AT ORIGIN ===\n")
+# Campus concentration at origin
 
 campus_concentration <- campus_data %>%
   group_by(window_id) %>%
@@ -294,6 +261,8 @@ campus_concentration <- campus_data %>%
     median_pct = median(pct_at_origin)
   )
 
+# Hotspot concentration at origin
+
 hotspot_concentration <- hotspot_data %>%
   group_by(window_id) %>%
   summarize(
@@ -308,60 +277,3 @@ hotspot_concentration <- hotspot_data %>%
     median_pct = median(pct_at_origin)
   )
 
-cat("Campus-based observers:\n")
-cat("  Mean % checklists at campus:", round(campus_concentration$mean_pct, 1), "%\n")
-cat("  Median % checklists at campus:", round(campus_concentration$median_pct, 1), "%\n\n")
-
-cat("Hotspot-based observers:\n")
-cat("  Mean % checklists at hotspot:", round(hotspot_concentration$mean_pct, 1), "%\n")
-cat("  Median % checklists at hotspot:", round(hotspot_concentration$median_pct, 1), "%\n\n")
-
-# ============================================================================
-# SUMMARY
-# ============================================================================
-
-cat("\n========================================\n")
-cat("SUMMARY FOR RESULTS SECTION\n")
-cat("========================================\n\n")
-
-cat("Campus-based observers (n =", campus_observers, ") across", 
-    n_distinct(campus_data$location_name), "campuses generated",
-    campus_windows, "tracking windows, submitting", nrow(campus_data), 
-    "checklists across", campus_locations, "unique locations spanning",
-    campus_counties, "counties. These observers traveled a median of", 
-    round(campus_dist_stats$median_dist, 1), "km between consecutive sites",
-    "and remained a median of", round(campus_from_origin$median_from_origin, 1),
-    "km from their origin campus.\n\n")
-
-cat("Hotspot-based observers (n =", hotspot_observers, ") across",
-    n_distinct(hotspot_data$location_name), "hotspots generated",
-    hotspot_windows, "tracking windows, submitting", nrow(hotspot_data), 
-    "checklists across", hotspot_locations, "unique locations spanning",
-    hotspot_counties, "counties. These observers traveled a median of", 
-    round(hotspot_dist_stats$median_dist, 1), "km between consecutive sites",
-    "and remained a median of", round(hotspot_from_origin$median_from_origin, 1),
-    "km from their origin hotspot.\n\n")
-
-# Save detailed stats
-summary_stats <- tibble(
-  metric = c("Total observers", "Tracking windows", "Total checklists",
-             "Unique locations", "Counties visited",
-             "Median distance between sites (km)", 
-             "Median distance from origin (km)",
-             "Mean % at origin", "% windows with return"),
-  campus = c(campus_observers, campus_windows, nrow(campus_data),
-             campus_locations, campus_counties,
-             round(campus_dist_stats$median_dist, 1),
-             round(campus_from_origin$median_from_origin, 1),
-             round(campus_concentration$mean_pct, 1),
-             round(campus_returns$pct_return, 1)),
-  hotspot = c(hotspot_observers, hotspot_windows, nrow(hotspot_data),
-              hotspot_locations, hotspot_counties,
-              round(hotspot_dist_stats$median_dist, 1),
-              round(hotspot_from_origin$median_from_origin, 1),
-              round(hotspot_concentration$mean_pct, 1),
-              round(hotspot_returns$pct_return, 1))
-)
-
-write.csv(summary_stats, "movement_summary_stats.csv", row.names = FALSE)
-cat("Summary statistics saved to movement_summary_stats.csv\n")
