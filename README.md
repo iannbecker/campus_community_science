@@ -2,8 +2,9 @@
 CITATION HERE (CHANGE ALL R SCRIPTS TO HAVE THE SAME .r STRUCTURE)
 
 ## Data
+These files can be used to recreate the analyses described below. For privacy purposes we do not include here movement data which included raw location data specific to individual users. 
 
-| Script | Description |
+| File Name | Description |
 |--------|-------------|
 | `campus_data_with_pca.csv` | Master dataset for modelling. Includes all variables by campus included in models including PCA scores |
 | `campus_polygons_MASTER` | Shapefile with campus boundaries (n=153) |
