@@ -1,61 +1,58 @@
 ##############################
 #
 # Unique Visitor Comparison: Campus vs Hotspot
-# Counts unique observer_ids at campuses vs non-campus hotspots
-# Output: CSV for t-test comparison
-#
-# College Campus Community Science Study
-# Revised analysis addressing reviewer concerns
+# Ian Becker
+# April 2026
 #
 ##############################
 
-# Libraries
+# This script was run on a cluster and read in eBird data
+# then processed it to count unique visitors at campuses and non-campus hotspots
+
 library(auk)
 library(dplyr)
 library(sf)
 library(tidyr)
 
-##############################
-# STEP 1: Setup paths
-##############################
+# =============================================================================
+# DATA SETUP AND PREP
+# =============================================================================
 
-# eBird data directory - UPDATE THESE PATHS
-ebd_dir <- "/home/ianbecker01/campus_cosci/data"
-sampling_dir <- "/home/ianbecker01/campus_cosci/data"
+# eBird data directory 
 
-# Campus polygon shapefile - UPDATE THIS PATH
-campus_shapefile <- "/home/ianbecker01/campus_cosci/data/campus_polygons.shp"
+ebd_dir <- "PATH HERE"
+sampling_dir <- "PATH HERE"
+
+# Campus polygon shapefile 
+campus_shapefile <- "PATH HERE"
 
 # Output directory
-output_dir <- "/home/ianbecker01/campus_cosci/output"
-dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
-# States to process (three-state focused approach)
+output_dir <- ebd_dir
+
+# States to process 
+
 states <- c("Texas", "Oklahoma", "Kansas")
 state_abbr <- c("TX", "OK", "KS")
 
-# Date range (2015-2024 per your revised methodology)
-date_range <- c(as.Date("2015-01-01"), as.Date("2024-12-31"))
+# Date range 
 
-##############################
-# STEP 2: Load campus polygons (once)
-##############################
+date_range <- c(as.Date("2015-01-01"), as.Date("2025-12-31"))
 
-cat("Loading campus polygon data...\n")
+# Load campus polygons
+
 campus_polygons <- st_read(campus_shapefile, quiet = TRUE)
-
 cat("Campus polygons loaded:", nrow(campus_polygons), "\n")
-cat("Columns in shapefile:", paste(names(campus_polygons), collapse = ", "), "\n\n")
 
 # Ensure CRS is WGS84
+
 if (st_crs(campus_polygons) != st_crs(4326)) {
-  cat("Reprojecting campus polygons to WGS84...\n")
   campus_polygons <- st_transform(campus_polygons, crs = 4326)
 }
 
-##############################
-# STEP 3: Process each state - count unique visitors
-##############################
+# =============================================================================
+# FUNCTION TO PROCESS EBIRD DATA FOR UNIQUE VISITORS
+# =============================================================================
 
 process_state_visitors <- function(state_name, state_code) {
   
@@ -64,10 +61,12 @@ process_state_visitors <- function(state_name, state_code) {
   cat("===========================================\n")
   
   # Construct file paths
+  
   ebd_file <- file.path(ebd_dir, paste0("ebd_US-", state_code, "_smp_relNov-2025.txt"))
   sampling_file <- file.path(sampling_dir, paste0("ebd_US-", state_code, "_smp_relNov-2025_sampling.txt"))
   
   # Check if files exist
+  
   if (!file.exists(ebd_file)) {
     cat("WARNING: EBD file not found - skipping", state_name, "\n")
     return(NULL)
@@ -77,9 +76,9 @@ process_state_visitors <- function(state_name, state_code) {
     return(NULL)
   }
   
-  # === PART A: Extract and filter eBird data ===
+  ##### eBird data #####
   
-  cat("\nPart A: Extracting eBird data\n")
+  cat("\nExtracting eBird data\n")
   
   temp_output <- file.path(output_dir, paste0("temp_", state_code, ".txt"))
   temp_sampling <- file.path(output_dir, paste0("temp_", state_code, "_sampling.txt"))
@@ -96,12 +95,14 @@ process_state_visitors <- function(state_name, state_code) {
   ebd_data <- read_ebd(temp_output)
   
   # Delete temp files
+  
   file.remove(temp_output)
   file.remove(temp_sampling)
   
   cat("  Initial observations:", nrow(ebd_data), "\n")
   
   # Apply additional filters (unique checklists, ≤20km travel)
+  
   ebd_filtered <- ebd_data %>%
     distinct(checklist_id, .keep_all = TRUE) %>%
     filter(is.na(effort_distance_km) | effort_distance_km <= 20)
@@ -109,14 +110,16 @@ process_state_visitors <- function(state_name, state_code) {
   cat("  After filters (unique + ≤20km):", nrow(ebd_filtered), "\n")
   
   # Clean up
+  
   rm(ebd_data)
   gc(verbose = FALSE)
   
-  # === PART B: Campus unique visitors ===
+  ##### Campus unique visitors #####
   
-  cat("\nPart B: Counting unique visitors at campuses\n")
+  cat("\nCounting unique visitors at campuses\n")
   
   # Convert checklists to spatial points
+  
   ebird_sf <- st_as_sf(
     ebd_filtered,
     coords = c("longitude", "latitude"),
@@ -125,6 +128,7 @@ process_state_visitors <- function(state_name, state_code) {
   )
   
   # Spatial join to campus polygons
+  
   cat("  Performing spatial join to campuses...\n")
   checklists_on_campus <- st_join(
     ebird_sf,
@@ -136,6 +140,7 @@ process_state_visitors <- function(state_name, state_code) {
   cat("  Checklists within campuses:", nrow(checklists_on_campus), "\n")
   
   # Count unique visitors per campus
+  
   if (nrow(checklists_on_campus) > 0) {
     campus_visitors <- checklists_on_campus %>%
       st_drop_geometry() %>%
@@ -161,24 +166,28 @@ process_state_visitors <- function(state_name, state_code) {
   }
   
   # Cleanup campus spatial objects
+  
   rm(ebird_sf, checklists_on_campus)
   gc(verbose = FALSE)
   
-  # === PART C: Non-campus hotspot unique visitors ===
+  ##### Hotspot unique visitors #####
   
-  cat("\nPart C: Counting unique visitors at non-campus hotspots\n")
+  cat("\nCounting unique visitors at non-campus hotspots\n")
   
   # Filter to hotspots only (locality_type == "H")
+  
   hotspot_checklists <- ebd_filtered %>%
     filter(locality_type == "H")
   
   # Done with full filtered data
+  
   rm(ebd_filtered)
   gc(verbose = FALSE)
   
   cat("  Hotspot checklists:", nrow(hotspot_checklists), "\n")
   
   # Convert to spatial
+  
   hotspot_sf <- st_as_sf(
     hotspot_checklists,
     coords = c("longitude", "latitude"),
@@ -187,10 +196,12 @@ process_state_visitors <- function(state_name, state_code) {
   )
   
   # Done with hotspot_checklists
+  
   rm(hotspot_checklists)
   gc(verbose = FALSE)
   
   # Remove any hotspots that fall within campus polygons
+  
   cat("  Removing hotspots within campus boundaries...\n")
   hotspot_in_campus <- st_join(
     hotspot_sf,
@@ -200,6 +211,7 @@ process_state_visitors <- function(state_name, state_code) {
   )
   
   # Keep only those NOT in a campus
+  
   non_campus_hotspots <- hotspot_in_campus %>%
     filter(is.na(unitid)) %>%
     st_drop_geometry()
@@ -207,6 +219,7 @@ process_state_visitors <- function(state_name, state_code) {
   cat("  Non-campus hotspot checklists:", nrow(non_campus_hotspots), "\n")
   
   # Count unique visitors per hotspot
+  
   if (nrow(non_campus_hotspots) > 0) {
     hotspot_visitors <- non_campus_hotspots %>%
       group_by(locality_id, locality) %>%
@@ -232,16 +245,20 @@ process_state_visitors <- function(state_name, state_code) {
     )
   }
   
-  # === PART D: Standardize and combine ===
+  ##### Clean up and combine #####
   
   # Rename campus columns to match hotspot structure
+  
   campus_visitors_std <- campus_visitors %>%
+    mutate(unitid = as.character(unitid)) %>%
     rename(location_id = unitid, location_name = inst_name)
   
   # Combine
+  
   combined <- bind_rows(campus_visitors_std, hotspot_visitors)
   
   # Final cleanup
+  
   rm(hotspot_sf, hotspot_in_campus, non_campus_hotspots)
   gc(verbose = FALSE)
   
@@ -250,13 +267,9 @@ process_state_visitors <- function(state_name, state_code) {
   return(combined)
 }
 
-##############################
-# STEP 4: Process all states
-##############################
-
-cat("\n===========================================\n")
-cat("PROCESSING ALL STATES\n")
-cat("===========================================\n")
+# =============================================================================
+# LOOP THROUGH ALL STATES
+# =============================================================================
 
 all_results <- list()
 
@@ -269,15 +282,12 @@ for (i in seq_along(states)) {
   cat("Completed", i, "of", length(states), "states\n")
 }
 
-##############################
-# STEP 5: Combine and save results
-##############################
-
-cat("\n===========================================\n")
-cat("COMBINING RESULTS\n")
-cat("===========================================\n")
+# =============================================================================
+# COMBINE AND SAVE RESULTS
+# =============================================================================
 
 # Remove NULL entries
+
 all_results <- all_results[!sapply(all_results, is.null)]
 
 if (length(all_results) > 0) {
@@ -285,6 +295,7 @@ if (length(all_results) > 0) {
   final_data <- bind_rows(all_results)
   
   # Sample hotspots to match campus count
+  
   set.seed(123)  # For reproducibility
   
   n_campuses <- sum(final_data$location_type == "campus")
@@ -298,9 +309,11 @@ if (length(all_results) > 0) {
   cat("Sampled hotspots to match:", nrow(hotspot_data), "\n")
   
   # Recombine with matched sample
+  
   final_data <- bind_rows(campus_data, hotspot_data)
   
   # Summary statistics
+  
   cat("\n--- SUMMARY ---\n")
   cat("Total locations:", nrow(final_data), "\n")
   
@@ -318,33 +331,19 @@ if (length(all_results) > 0) {
   print(summary_by_type)
   
   # Save full dataset
+  
   output_file <- file.path(output_dir, "unique_visitors_comparison.csv")
   write.csv(final_data, output_file, row.names = FALSE)
   cat("\nFull data saved to:", output_file, "\n")
   
   # Save summary for quick reference
+  
   summary_file <- file.path(output_dir, "visitor_summary_by_type.csv")
   write.csv(summary_by_type, summary_file, row.names = FALSE)
   cat("Summary saved to:", summary_file, "\n")
-  
-  # Quick t-test preview
-  cat("\n--- T-TEST PREVIEW ---\n")
-  campus_data <- final_data %>% filter(location_type == "campus")
-  hotspot_data <- final_data %>% filter(location_type == "hotspot")
-  
-  if (nrow(campus_data) > 1 & nrow(hotspot_data) > 1) {
-    t_result <- t.test(campus_data$unique_visitors, hotspot_data$unique_visitors)
-    cat("Campus mean:", round(mean(campus_data$unique_visitors), 2), "\n")
-    cat("Hotspot mean:", round(mean(hotspot_data$unique_visitors), 2), "\n")
-    cat("t =", round(t_result$statistic, 3), "\n")
-    cat("p-value =", format(t_result$p.value, scientific = TRUE, digits = 3), "\n")
-    cat("95% CI:", round(t_result$conf.int[1], 2), "to", round(t_result$conf.int[2], 2), "\n")
-  }
   
 } else {
   cat("\nNo data processed - check if eBird files exist!\n")
 }
 
-cat("\n===========================================\n")
-cat("SCRIPT COMPLETE!\n")
-cat("===========================================\n")
+
