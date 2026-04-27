@@ -2,12 +2,13 @@
 CITATION HERE (CHANGE ALL R SCRIPTS TO HAVE THE SAME .r STRUCTURE)
 
 ## Data
-These files can be used to recreate the analyses described below. For privacy purposes we do not include here movement data which included raw location data specific to individual users. 
+These files can be used to recreate the analyses described below. For privacy purposes we do not include here movement data which included raw location data specific to individual users. Instead here we include an example simulated dataset which can be used to recreate analyses. 
 
 | File Name | Description |
 |--------|-------------|
 | `campus_data_with_pca.csv` | Master dataset for modelling. Includes all variables by campus included in models including PCA scores |
 | `campus_polygons_MASTER` | Shapefile with campus boundaries (n=153) |
+| `movement_network_EXAMPLE.csv` | Simulated dataset used as an example for movement analyses to protect eBird user privacy |
 | `sensitivity_test.csv` | Dataset used for geographic sensitivity analysis (n=208) |
 | `unique_visitor_comparison.csv` | Dataset used for visitor behavior comparison between campuses and hotspots |
 
