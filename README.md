@@ -1,4 +1,5 @@
 # Data and code for: Institutional characteristics, not habitat quality alone, drive community science engagement on college campuses 
+**Citation:** Becker, I., & Contina, A. (2026). Data and code from: Institutional characteristics, not habitat quality alone, drive community science engagement on college campuses (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.19930592
 
 ## Data
 These files can be used to recreate the analyses described below. For privacy purposes we do not include here movement data which included raw location data specific to individual users. Instead here we include an example simulated dataset which can be used to recreate analyses. 
