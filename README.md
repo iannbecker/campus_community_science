@@ -1,5 +1,4 @@
-# TITLE HERE   
-CITATION HERE (CHANGE ALL R SCRIPTS TO HAVE THE SAME .r STRUCTURE)
+# Data and code for: Institutional characteristics, not habitat quality alone, drive community science engagement on college campuses 
 
 ## Data
 These files can be used to recreate the analyses described below. For privacy purposes we do not include here movement data which included raw location data specific to individual users. Instead here we include an example simulated dataset which can be used to recreate analyses. 
