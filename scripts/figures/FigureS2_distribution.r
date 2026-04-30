@@ -1,6 +1,6 @@
 ##################
 #
-#  Figure SX: Observer distribution
+#  Figure S2: Observer distribution
 #  Ian Becker
 #  February 2026
 #
