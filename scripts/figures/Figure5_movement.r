@@ -22,32 +22,6 @@ options(tigris_use_cache = TRUE)
 setwd("PATH HERE")
 output_dir <- "PATH HERE"
 
-##############################
-#
-# Figure 5: Observer Movement Patterns (Campus vs Hotspot)
-# Ian Becker
-# April 2026
-#
-##############################
-
-# Produces four panels saved individually for PowerPoint assembly:
-#   Panel A: Violin plots — distribution of travel distance from origin
-#            (full dataset, all observers, all windows)
-#   Panel B: Tilted radii schematic — median movement distances
-#   Panel C: Campus exemplar observer movement map
-#   Panel D: Hotspot exemplar observer movement map
-
-library(tidyverse)
-library(sf)
-library(tigris)
-library(ggplot2)
-library(layer)
-
-options(tigris_use_cache = TRUE)
-
-setwd("PATH HERE")
-output_dir <- "PATH HERE"
-
 # ============================================================================
 # SHARED SETTINGS
 # ============================================================================
